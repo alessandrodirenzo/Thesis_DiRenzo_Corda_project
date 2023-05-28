@@ -12,24 +12,95 @@ import static net.corda.core.contracts.ContractsDSL.requireThat;
 // ************
 public class AffiliatedVisitContract implements Contract {
     // This is used to identify our contract when building a transaction.
-    public static final String ID = "com.template.contracts.TemplateContract";
+    public static final String ID = "com.AffiliatedVisit.contracts.AffiliatedVisitContract";
 
     // A transaction is valid if verify() method of the contract of all the transaction's input and output states
     // does not throw an exception.
     @Override
     public void verify(LedgerTransaction tx) {
 
-        /* We can use the requireSingleCommand function to extract command data from transaction.
-         * However, it is possible to have multiple commands in a single transaction.*/
-        //final CommandWithParties<Commands> command = requireSingleCommand(tx.getCommands(), Commands.class);
         final CommandData commandData = tx.getCommands().get(0).getValue();
 
-        if (commandData instanceof Commands.Send) {
+        if (commandData instanceof Commands.NewRequestOfAffiliatedVisit) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
+                require.using("No inputs should be consumed when asking new request of affiliated visit.", tx.getInputStates().isEmpty());
+                require.using("No decision made", (!output.isAccepted()) && (!output.isRejected()));
+                require.using("No validations performed", (!output.isFirst_category()) && (!output.isSecond_category()));
+                return null;
+            });
+        }
+
+        if (commandData instanceof Commands.PrivitySharingDataFirst) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+        if (commandData instanceof Commands.RejectionAssessment) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+        if (commandData instanceof Commands.RequestRejected) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+        if (commandData instanceof Commands.AcceptanceAssessment) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+        if (commandData instanceof Commands.RequestAccepted) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+        if (commandData instanceof Commands.NewVisitRequest) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+        if (commandData instanceof Commands.AvailableDatesForBooking) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
                 return null;
             });
         }
@@ -37,7 +108,14 @@ public class AffiliatedVisitContract implements Contract {
 
     // Used to indicate the transaction's intent.
     public interface Commands extends CommandData {
-        //In our hello-world app, We will only have one command.
-        class Send implements Commands {}
+
+        class NewRequestOfAffiliatedVisit implements Commands {}
+        class PrivitySharingDataFirst implements Commands {}
+        class RejectionAssessment implements Commands {}
+        class RequestRejected implements Commands {}
+        class AcceptanceAssessment implements Commands {}
+        class RequestAccepted implements Commands {}
+        class NewVisitRequest implements Commands {}
+        class AvailableDatesForBooking implements Commands {}
     }
 }
