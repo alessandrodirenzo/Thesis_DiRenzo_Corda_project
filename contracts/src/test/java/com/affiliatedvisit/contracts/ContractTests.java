@@ -20,7 +20,10 @@ public class ContractTests {
     private final TestIdentity compC = new TestIdentity(new CordaX500Name("C",  "Milan",  "IT"));
 
     private AffiliatedVisit state1 = new AffiliatedVisit(new UniqueIdentifier(), compA.getParty(), Arrays.asList(compB.getParty()), false, false, false, false);
-    //private AffiliatedVisit state2 = new AffiliatedVisit();
+    private AffiliatedVisit state2 = new AffiliatedVisit(new UniqueIdentifier(), compA.getParty(), Arrays.asList(compB.getParty()), true, true, true, false);
+
+    private AffiliatedVisit state3 = new AffiliatedVisit(new UniqueIdentifier(), compA.getParty(), Arrays.asList(compB.getParty()), true, true, true, true);
+
     @Test
     public void NewRequestOfAffiliatedVisitCorrectInputsandOutputs() {
 
