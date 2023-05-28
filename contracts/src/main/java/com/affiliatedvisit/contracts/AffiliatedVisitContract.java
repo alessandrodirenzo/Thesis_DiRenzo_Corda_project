@@ -12,7 +12,7 @@ import static net.corda.core.contracts.ContractsDSL.requireThat;
 // ************
 public class AffiliatedVisitContract implements Contract {
     // This is used to identify our contract when building a transaction.
-    public static final String ID = "com.AffiliatedVisit.contracts.AffiliatedVisitContract";
+    public static final String ID = "com.affiliatedvisit.contracts.AffiliatedVisitContract";
 
     // A transaction is valid if verify() method of the contract of all the transaction's input and output states
     // does not throw an exception.

@@ -16,7 +16,7 @@ import java.util.List;
 // * State *
 // *********
 @BelongsToContract(AffiliatedVisitContract.class)
-public class AffiliatedVisit implements ContractState, LinearState {
+public class AffiliatedVisit implements LinearState {
 
     //private variables
 
