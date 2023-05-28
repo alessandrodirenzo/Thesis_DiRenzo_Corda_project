@@ -31,7 +31,7 @@ public class TemplateFlow {
         @Override
         @Suspendable
         public SignedTransaction call() throws FlowException {
-            //Hello World message
+
 
             this.initiator = getOurIdentity();
 
