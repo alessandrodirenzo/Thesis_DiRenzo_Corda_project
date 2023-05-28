@@ -26,11 +26,11 @@ public class NewRequestOfAffiliatedVisitFlow {
 
         //private variables
         private Party initiator ;
-        private Party receivers;
+        private Party receiver;
 
         //public constructor
         public NewRequestOfAffiliatedVisitFlowInitiator(Party receiver) {
-            this.receivers = receiver;
+            this.receiver = receiver;
         }
 
         @Override
@@ -46,10 +46,10 @@ public class NewRequestOfAffiliatedVisitFlow {
 
             final UniqueIdentifier idState = new UniqueIdentifier();
 
-            final AffiliatedVisit output = new AffiliatedVisit(idState,initiator,Arrays.asList(receivers), false, false, false, false);
+            final AffiliatedVisit output = new AffiliatedVisit(idState,initiator,Arrays.asList(receiver), false, false, false, false);
 
             //Step 2. Send personal data to the counterparty
-            FlowSession otherPartySession = initiateFlow(receivers);
+            FlowSession otherPartySession = initiateFlow(receiver);
 
             String personaldata= "Trial message";
 
@@ -60,7 +60,7 @@ public class NewRequestOfAffiliatedVisitFlow {
 
             // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
             builder.addOutputState(output);
-            builder.addCommand(new AffiliatedVisitContract.Commands.NewRequestOfAffiliatedVisit(), Arrays.asList(this.initiator.getOwningKey(),this.receivers.getOwningKey()) );
+            builder.addCommand(new AffiliatedVisitContract.Commands.NewRequestOfAffiliatedVisit(), Arrays.asList(this.initiator.getOwningKey(),this.receiver.getOwningKey()) );
 
 
             // Step 5. Verify and sign it with our KeyPair.
