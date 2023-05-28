@@ -36,7 +36,7 @@ public class AffiliatedVisitContract implements Contract {
             });
         }
 
-        if (commandData instanceof Commands.PrivitySharingDataFirst) {
+        if (commandData instanceof Commands.PrivitySharingDataOne) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
 
@@ -112,7 +112,7 @@ public class AffiliatedVisitContract implements Contract {
     public interface Commands extends CommandData {
 
         class NewRequestOfAffiliatedVisit implements Commands {}
-        class PrivitySharingDataFirst implements Commands {}
+        class PrivitySharingDataOne implements Commands {}
         class RejectionAssessment implements Commands {}
         class RequestRejected implements Commands {}
         class AcceptanceAssessment implements Commands {}

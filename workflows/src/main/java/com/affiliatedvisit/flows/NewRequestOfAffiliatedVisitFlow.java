@@ -46,7 +46,7 @@ public class NewRequestOfAffiliatedVisitFlow {
 
             final UniqueIdentifier idState = new UniqueIdentifier();
 
-            final AffiliatedVisit output = new AffiliatedVisit(idState,initiator,Arrays.asList(receiver), false, false, false, false);
+            final AffiliatedVisit output = new AffiliatedVisit(initiator,Arrays.asList(receiver), false, false, false, false);
 
             //Step 2. Send personal data to the counterparty
             FlowSession otherPartySession = initiateFlow(receiver);

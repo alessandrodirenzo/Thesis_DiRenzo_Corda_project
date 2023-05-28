@@ -16,22 +16,21 @@ import java.util.List;
 // * State *
 // *********
 @BelongsToContract(AffiliatedVisitContract.class)
-public class AffiliatedVisit implements LinearState {
+public class AffiliatedVisit implements ContractState,LinearState {
 
     //private variables
 
     private Party initiator;
     private List<Party> receivers;
-    private final UniqueIdentifier idState;
+    private final UniqueIdentifier idState = new UniqueIdentifier();
     private boolean second_category;
     private boolean first_category;
     private boolean accepted;
 
     /* Constructor of Affiliated Visit State */
-    public AffiliatedVisit( UniqueIdentifier idState, Party initiator, List<Party> receivers, boolean second_category, boolean first_category, boolean accepted, boolean rejected) {
+    public AffiliatedVisit( Party initiator, List<Party> receivers, boolean second_category, boolean first_category, boolean accepted, boolean rejected) {
         this.initiator = initiator;
         this.receivers = receivers;
-        this.idState = idState;
         this.second_category = second_category;
         this.first_category = first_category;
         this.accepted = accepted;
