@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 public class PrivitySharingDataOneFlow {
 
-    private static String path= "path_file";
+    private static String pathSource= "path_file";
 
     @InitiatingFlow
     @StartableByRPC
@@ -132,6 +132,7 @@ public class PrivitySharingDataOneFlow {
                     @Override
                     protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
                         String hash = "";
+                        String pathDestination="";
                         try {
                             hash= stx.toLedgerTransaction(getServiceHub(), false).getAttachments().get(0).getId().toString();
                         } catch (SignatureException e) {
@@ -144,7 +145,7 @@ public class PrivitySharingDataOneFlow {
                             InputStream inStream = content.open();
                             byte[] buffer = new byte[inStream.available()];
                             inStream.read(buffer);
-                            File targetFile = new File(path);
+                            File targetFile = new File(pathDestination);
                             new FileOutputStream(targetFile).write(buffer);
                         } catch (IOException e) {
                             e.printStackTrace();
