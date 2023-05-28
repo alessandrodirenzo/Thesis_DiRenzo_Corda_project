@@ -1,0 +1,40 @@
+package com.affiliatedvisit.states;
+
+import com.affiliatedvisit.contracts.TemplateContract;
+import net.corda.core.contracts.BelongsToContract;
+import net.corda.core.contracts.ContractState;
+import net.corda.core.identity.AbstractParty;
+import net.corda.core.identity.Party;
+
+import java.util.Arrays;
+import java.util.List;
+
+// *********
+// * State *
+// *********
+@BelongsToContract(TemplateContract.class)
+public class AffiliatedVisit implements ContractState {
+
+    //private variables
+
+    private Party initiator;
+    private Party receiver;
+
+    /* Constructor of your Corda state */
+    public AffiliatedVisit(Party initiator, Party receiver) {
+        this.initiator = initiator;
+        this.receiver = receiver;
+    }
+
+    //getters
+
+    public Party getInitiator() { return initiator; }
+    public Party getReceiver() { return receiver; }
+
+    /* This method will indicate who are the participants and required signers when
+     * this state is used in a transaction. */
+    @Override
+    public List<AbstractParty> getParticipants() {
+        return Arrays.asList(initiator,receiver);
+    }
+}
