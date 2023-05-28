@@ -21,6 +21,7 @@ public class TemplateFlow {
 
         //private variables
         private Party initiator ;
+        private String msg;
         private Party receiver;
 
         //public constructor
