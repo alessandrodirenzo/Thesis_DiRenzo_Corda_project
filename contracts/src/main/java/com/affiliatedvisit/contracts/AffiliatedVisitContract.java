@@ -32,6 +32,7 @@ public class AffiliatedVisitContract implements Contract {
                 require.using("No decision made", (!output.isAccepted()) && (!output.isRejected()));
                 require.using("No validations performed", (!output.isFirst_category()) && (!output.isSecond_category()));
                 require.using("Company Employee have to start the flow", output.getInitiator().getName().getOrganisation().equals("Company Employee"));
+                require.using("No sharing of data already executed and no recap requested", !output.isDatashared_one() && !output.isDatashared_two() && !output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }
@@ -96,7 +97,18 @@ public class AffiliatedVisitContract implements Contract {
                 return null;
             });
         }
-        if (commandData instanceof Commands.AvailableDatesForBooking) {
+        if (commandData instanceof Commands.RecapConventionWithAvailableDatesForBooking) {
+            //Retrieve the output state of the transaction
+            AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+
+            //Using Corda DSL function requireThat to replicate conditions-checks
+            requireThat(require -> {
+
+                return null;
+            });
+        }
+
+        if (commandData instanceof Commands.PrivitySharingDataTwo) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
 
@@ -118,6 +130,7 @@ public class AffiliatedVisitContract implements Contract {
         class AcceptanceAssessment implements Commands {}
         class RequestAccepted implements Commands {}
         class NewVisitRequest implements Commands {}
-        class AvailableDatesForBooking implements Commands {}
+        class RecapConventionWithAvailableDatesForBooking implements Commands {}
+        class PrivitySharingDataTwo implements Commands {}
     }
 }

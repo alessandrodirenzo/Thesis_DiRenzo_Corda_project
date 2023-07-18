@@ -16,29 +16,53 @@ import java.util.List;
 // * State *
 // *********
 @BelongsToContract(AffiliatedVisitContract.class)
-public class AffiliatedVisit implements ContractState,LinearState {
+public class AffiliatedVisit implements ContractState{
 
     //private variables
 
     private Party initiator;
     private List<Party> receivers;
-    private final UniqueIdentifier idState = new UniqueIdentifier();
+    private UniqueIdentifier idState;
     private boolean second_category;
     private boolean first_category;
     private boolean accepted;
+    private boolean rejected;
+    private boolean datashared_one;
+    private boolean datashared_two;
+    private boolean recap_one;
+    private boolean recap_two;
 
     /* Constructor of Affiliated Visit State */
-    public AffiliatedVisit( Party initiator, List<Party> receivers, boolean second_category, boolean first_category, boolean accepted, boolean rejected) {
+    public AffiliatedVisit(UniqueIdentifier idState, Party initiator, List<Party> receivers, boolean second_category, boolean first_category, boolean accepted, boolean rejected, boolean datashared_one, boolean datashared_two, boolean recap_one, boolean recap_two) {
         this.initiator = initiator;
         this.receivers = receivers;
         this.second_category = second_category;
         this.first_category = first_category;
         this.accepted = accepted;
         this.rejected = rejected;
+        this.datashared_one = datashared_one;
+        this.datashared_two = datashared_two;
+        this.recap_one = recap_one;
+        this.recap_two = recap_two;
+        this.idState = idState;
     }
 
-    private boolean rejected;
 
+    public boolean isDatashared_one() {
+        return datashared_one;
+    }
+
+    public boolean isDatashared_two() {
+        return datashared_two;
+    }
+
+    public boolean isRecap_one() {
+        return recap_one;
+    }
+
+    public boolean isRecap_two() {
+        return recap_two;
+    }
 
     //getters
     public Party getInitiator() { return initiator; }
@@ -70,9 +94,8 @@ public class AffiliatedVisit implements ContractState,LinearState {
         entities.addAll(receivers);
         return entities;
     }
-    @NotNull
-    @Override
-    public UniqueIdentifier getLinearId() {
-        return this.idState;
+
+    public UniqueIdentifier getIdState() {
+        return idState;
     }
 }

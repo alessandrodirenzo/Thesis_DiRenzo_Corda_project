@@ -63,7 +63,7 @@ public class FlowTests {
         assert (ptx.getTx().getOutputs().get(0).getData() instanceof AffiliatedVisit);
         assert(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData() instanceof AffiliatedVisit);
         assert(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData() instanceof AffiliatedVisit);
-        assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getLinearId(),b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getLinearId());
+        assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
         assertEquals(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().size(),0);
 
     }

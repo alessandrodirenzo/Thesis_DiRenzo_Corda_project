@@ -13,23 +13,17 @@ import net.corda.core.transactions.TransactionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import static net.corda.core.contracts.ContractsDSL.requireThat;
-
-public class NewRequestOfAffiliatedVisitFlow {
-
+public class RequestAcceptedFlow {
     @InitiatingFlow
     @StartableByRPC
-    public static class NewRequestOfAffiliatedVisitFlowInitiator extends FlowLogic<SignedTransaction>{
-
+    public static class RequestAcceptedFlowInitiator extends FlowLogic<SignedTransaction> {
         //private variables
-        private Party initiator ;
+        private Party initiator;
         private Party receiver;
 
         //public constructor
-        public NewRequestOfAffiliatedVisitFlowInitiator(Party receiver) {
+        public RequestAcceptedFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 
@@ -44,23 +38,22 @@ public class NewRequestOfAffiliatedVisitFlow {
             /** Explicit selection of notary by CordaX500Nam*/
             final Party notary = getServiceHub().getNetworkMapCache().getNotary(CordaX500Name.parse("O=Notary,L=Milan,C=IT"));
 
-            final UniqueIdentifier idState = new UniqueIdentifier();
 
-            final AffiliatedVisit output = new AffiliatedVisit(idState, initiator,Arrays.asList(receiver), false, false, false, false,false,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(null, initiator, Arrays.asList(receiver), true, true, true, false, true,false,false,false);
 
             //Step 2. Send personal data to the counterparty
             FlowSession otherPartySession = initiateFlow(receiver);
 
-            String personaldata= "Trial message";
+            String confirmation= "Your request of affiliated visit has been completed successfully.";
 
-            otherPartySession.send(personaldata);
+            otherPartySession.send(confirmation);
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);
 
             // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
             builder.addOutputState(output);
-            builder.addCommand(new AffiliatedVisitContract.Commands.NewRequestOfAffiliatedVisit(), Arrays.asList(this.initiator.getOwningKey(),this.receiver.getOwningKey()) );
+            builder.addCommand(new AffiliatedVisitContract.Commands.NewRequestOfAffiliatedVisit(), Arrays.asList(this.initiator.getOwningKey(), this.receiver.getOwningKey()));
 
 
             // Step 5. Verify and sign it with our KeyPair.
@@ -76,13 +69,13 @@ public class NewRequestOfAffiliatedVisitFlow {
         }
     }
 
-    @InitiatedBy(NewRequestOfAffiliatedVisitFlowInitiator.class)
-    public static class NewRequestOfAffiliatedVisitFlowResponder extends FlowLogic<Void>{
+    @InitiatedBy(RequestAcceptedFlow.RequestAcceptedFlowInitiator.class)
+    public static class RequestAcceptedFlowResponder extends FlowLogic<Void> {
         //private variable
         private FlowSession counterpartySession;
 
         //Constructor
-        public NewRequestOfAffiliatedVisitFlowResponder(FlowSession counterpartySession) {
+        public RequestAcceptedFlowResponder(FlowSession counterpartySession) {
             this.counterpartySession = counterpartySession;
         }
 
@@ -99,9 +92,10 @@ public class NewRequestOfAffiliatedVisitFlow {
                 private SignTxFlow(FlowSession otherPartyFlow) {
                     super(otherPartyFlow);
                 }
+
                 @Override
                 protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
-                  //In this case there are no further checks to perform on the transaction
+                    //In this case there are no further checks to perform on the transaction
                 }
 
 
@@ -114,5 +108,4 @@ public class NewRequestOfAffiliatedVisitFlow {
             return null;
         }
     }
-
 }

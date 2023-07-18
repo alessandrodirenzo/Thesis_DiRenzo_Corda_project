@@ -3,43 +3,38 @@ package com.affiliatedvisit.flows;
 import co.paralleluniverse.fibers.Suspendable;
 import com.affiliatedvisit.contracts.AffiliatedVisitContract;
 import com.affiliatedvisit.states.AffiliatedVisit;
-import net.corda.core.contracts.*;
+import net.corda.core.contracts.Attachment;
+import net.corda.core.contracts.StateAndRef;
+import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.crypto.SecureHash;
 import net.corda.core.flows.*;
 import net.corda.core.identity.AbstractParty;
-import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.node.ServiceHub;
 import net.corda.core.node.services.Vault;
-import net.corda.core.node.services.vault.QueryCriteria;
-import net.corda.core.node.services.vault.QueryCriteriaUtils;
-import net.corda.core.transactions.LedgerTransaction;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-
-import javax.sound.sampled.Line;
 import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class PrivitySharingDataOneFlow {
+public class PrivitySharingDataTwoFlow {
 
     private static String pathSource= "path_file";
 
     @InitiatingFlow
     @StartableByRPC
-    public static class PrivitySharingDataOneFlowInitiator extends FlowLogic<SignedTransaction> {
+    public static class PrivitySharingDataTwoFlowInitiator extends FlowLogic<SignedTransaction> {
         private Party initiator;
         private List<Party> receivers;
         private UniqueIdentifier idLinState;
 
-        public PrivitySharingDataOneFlowInitiator(UniqueIdentifier idLinState, List<Party> receivers) {
+        public PrivitySharingDataTwoFlowInitiator(UniqueIdentifier idLinState, List<Party> receivers) {
             this.idLinState = idLinState;
             this.receivers = receivers;
         }
@@ -58,13 +53,11 @@ public class PrivitySharingDataOneFlow {
 
             List<StateAndRef<AffiliatedVisit>> states = results.getStates();
 
-            final StateAndRef inputState = states.get(0);
-
-            final AffiliatedVisit input= (AffiliatedVisit) inputState.getState().getData();
+            final AffiliatedVisit inputState = states.get(0).getState().getData();
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit( input.getIdState(),initiator, receivers, false, false, false, false, true,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(null, initiator, receivers, true, true, true, false, true,true,true,true);
 
             SecureHash attachmentHash = null;
             try {
@@ -82,7 +75,6 @@ public class PrivitySharingDataOneFlow {
             final TransactionBuilder builder = new TransactionBuilder(notary);
 
             // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
-            builder.addInputState(inputState);
             builder.addOutputState(output);
             builder.addCommand(new AffiliatedVisitContract.Commands.PrivitySharingDataOne(), Arrays.asList(this.initiator.getOwningKey(), this.receivers.get(0).getOwningKey(), this.receivers.get(1).getOwningKey()));
 
@@ -111,57 +103,57 @@ public class PrivitySharingDataOneFlow {
         }
     }
 
-        @InitiatedBy(PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator.class)
-        public static class PrivitySharingDataOneFlowResponder extends FlowLogic<Void>{
-            //private variable
-            private FlowSession counterpartySession;
+    @InitiatedBy(PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator.class)
+    public static class PrivitySharingDataTwoFlowResponder extends FlowLogic<Void>{
+        //private variable
+        private FlowSession counterpartySession;
 
-            //Constructor
-            public PrivitySharingDataOneFlowResponder(FlowSession counterpartySession) {
-                this.counterpartySession = counterpartySession;
-            }
-
-
-            @Suspendable
-            @Override
-            public Void call() throws FlowException {
-                class SignTxFlow extends SignTransactionFlow {
-                    private SignTxFlow(FlowSession otherPartyFlow) {
-                        super(otherPartyFlow);
-                    }
+        //Constructor
+        public PrivitySharingDataTwoFlowResponder(FlowSession counterpartySession) {
+            this.counterpartySession = counterpartySession;
+        }
 
 
-                    @Override
-                    protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
-                        String hash = "";
-                        String pathDestination="";
-                        try {
-                            hash= stx.toLedgerTransaction(getServiceHub(), false).getAttachments().get(0).getId().toString();
-                        } catch (SignatureException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Attachment content = getServiceHub().getAttachments().openAttachment(SecureHash.parse(hash));
-                        try {
-                            assert content != null;
-                            //content.extractFile(path, new FileOutputStream(new File(path)));
-                            InputStream inStream = content.open();
-                            byte[] buffer = new byte[inStream.available()];
-                            inStream.read(buffer);
-                            File targetFile = new File(pathDestination);
-                            new FileOutputStream(targetFile).write(buffer);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
+        @Suspendable
+        @Override
+        public Void call() throws FlowException {
+            class SignTxFlow extends SignTransactionFlow {
+                private SignTxFlow(FlowSession otherPartyFlow) {
+                    super(otherPartyFlow);
                 }
-                final SignTxFlow signTxFlow = new SignTxFlow(counterpartySession);
-                final SecureHash txId = subFlow(signTxFlow).getId();
 
-                subFlow(new ReceiveFinalityFlow(counterpartySession, txId));
-                return null;
+
+                @Override
+                protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
+                    String hash = "";
+                    String pathDestination="";
+                    try {
+                        hash= stx.toLedgerTransaction(getServiceHub(), false).getAttachments().get(0).getId().toString();
+                    } catch (SignatureException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Attachment content = getServiceHub().getAttachments().openAttachment(SecureHash.parse(hash));
+                    try {
+                        assert content != null;
+                        //content.extractFile(path, new FileOutputStream(new File(path)));
+                        InputStream inStream = content.open();
+                        byte[] buffer = new byte[inStream.available()];
+                        inStream.read(buffer);
+                        File targetFile = new File(pathDestination);
+                        new FileOutputStream(targetFile).write(buffer);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
             }
+            final SignTxFlow signTxFlow = new SignTxFlow(counterpartySession);
+            final SecureHash txId = subFlow(signTxFlow).getId();
+
+            subFlow(new ReceiveFinalityFlow(counterpartySession, txId));
+            return null;
+        }
 
     }
 

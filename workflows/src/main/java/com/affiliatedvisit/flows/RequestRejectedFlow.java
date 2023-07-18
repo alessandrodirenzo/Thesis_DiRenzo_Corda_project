@@ -18,18 +18,17 @@ import java.util.stream.Collectors;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
-public class NewRequestOfAffiliatedVisitFlow {
+public class RequestRejectedFlow {
 
     @InitiatingFlow
     @StartableByRPC
-    public static class NewRequestOfAffiliatedVisitFlowInitiator extends FlowLogic<SignedTransaction>{
-
+    public static class RequestRejectedFlowInitiator extends FlowLogic<SignedTransaction> {
         //private variables
         private Party initiator ;
         private Party receiver;
 
         //public constructor
-        public NewRequestOfAffiliatedVisitFlowInitiator(Party receiver) {
+        public RequestRejectedFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 
@@ -44,16 +43,15 @@ public class NewRequestOfAffiliatedVisitFlow {
             /** Explicit selection of notary by CordaX500Nam*/
             final Party notary = getServiceHub().getNetworkMapCache().getNotary(CordaX500Name.parse("O=Notary,L=Milan,C=IT"));
 
-            final UniqueIdentifier idState = new UniqueIdentifier();
 
-            final AffiliatedVisit output = new AffiliatedVisit(idState, initiator,Arrays.asList(receiver), false, false, false, false,false,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(null, initiator, Arrays.asList(receiver), true, true, false, true, true,false,false,false);
 
             //Step 2. Send personal data to the counterparty
             FlowSession otherPartySession = initiateFlow(receiver);
 
-            String personaldata= "Trial message";
+            String refusal= "Your request has been rejected since your pathology is not in the list of affiliated pathology.";
 
-            otherPartySession.send(personaldata);
+            otherPartySession.send(refusal);
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);
@@ -76,13 +74,13 @@ public class NewRequestOfAffiliatedVisitFlow {
         }
     }
 
-    @InitiatedBy(NewRequestOfAffiliatedVisitFlowInitiator.class)
-    public static class NewRequestOfAffiliatedVisitFlowResponder extends FlowLogic<Void>{
+    @InitiatedBy(RequestRejectedFlow.RequestRejectedFlowInitiator.class)
+    public static class RequestRejectedFlowResponder extends FlowLogic<Void>{
         //private variable
         private FlowSession counterpartySession;
 
         //Constructor
-        public NewRequestOfAffiliatedVisitFlowResponder(FlowSession counterpartySession) {
+        public RequestRejectedFlowResponder(FlowSession counterpartySession) {
             this.counterpartySession = counterpartySession;
         }
 
@@ -101,7 +99,7 @@ public class NewRequestOfAffiliatedVisitFlow {
                 }
                 @Override
                 protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
-                  //In this case there are no further checks to perform on the transaction
+                    //In this case there are no further checks to perform on the transaction
                 }
 
 
@@ -114,5 +112,4 @@ public class NewRequestOfAffiliatedVisitFlow {
             return null;
         }
     }
-
 }

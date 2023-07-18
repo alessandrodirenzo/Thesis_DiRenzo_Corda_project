@@ -13,23 +13,17 @@ import net.corda.core.transactions.TransactionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import static net.corda.core.contracts.ContractsDSL.requireThat;
-
-public class NewRequestOfAffiliatedVisitFlow {
-
+public class AcceptanceAssessmentFlow {
     @InitiatingFlow
     @StartableByRPC
-    public static class NewRequestOfAffiliatedVisitFlowInitiator extends FlowLogic<SignedTransaction>{
-
+    public static class AcceptanceAssessmentFlowInitiator extends FlowLogic<SignedTransaction> {
         //private variables
         private Party initiator ;
         private Party receiver;
 
         //public constructor
-        public NewRequestOfAffiliatedVisitFlowInitiator(Party receiver) {
+        public AcceptanceAssessmentFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 
@@ -44,16 +38,14 @@ public class NewRequestOfAffiliatedVisitFlow {
             /** Explicit selection of notary by CordaX500Nam*/
             final Party notary = getServiceHub().getNetworkMapCache().getNotary(CordaX500Name.parse("O=Notary,L=Milan,C=IT"));
 
-            final UniqueIdentifier idState = new UniqueIdentifier();
-
-            final AffiliatedVisit output = new AffiliatedVisit(idState, initiator,Arrays.asList(receiver), false, false, false, false,false,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(null, initiator, Arrays.asList(receiver), true, false, true, false, true,false,false,false);
 
             //Step 2. Send personal data to the counterparty
             FlowSession otherPartySession = initiateFlow(receiver);
 
-            String personaldata= "Trial message";
+            String acceptancedecision= "The request of affiliated visit of company employee has been accepted.";
 
-            otherPartySession.send(personaldata);
+            otherPartySession.send(acceptancedecision);
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);
@@ -76,13 +68,13 @@ public class NewRequestOfAffiliatedVisitFlow {
         }
     }
 
-    @InitiatedBy(NewRequestOfAffiliatedVisitFlowInitiator.class)
-    public static class NewRequestOfAffiliatedVisitFlowResponder extends FlowLogic<Void>{
+    @InitiatedBy(AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator.class)
+    public static class AcceptanceAssessmentFlowResponder extends FlowLogic<Void>{
         //private variable
         private FlowSession counterpartySession;
 
         //Constructor
-        public NewRequestOfAffiliatedVisitFlowResponder(FlowSession counterpartySession) {
+        public AcceptanceAssessmentFlowResponder(FlowSession counterpartySession) {
             this.counterpartySession = counterpartySession;
         }
 
@@ -101,7 +93,7 @@ public class NewRequestOfAffiliatedVisitFlow {
                 }
                 @Override
                 protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
-                  //In this case there are no further checks to perform on the transaction
+                    //In this case there are no further checks to perform on the transaction
                 }
 
 
@@ -114,5 +106,4 @@ public class NewRequestOfAffiliatedVisitFlow {
             return null;
         }
     }
-
 }
