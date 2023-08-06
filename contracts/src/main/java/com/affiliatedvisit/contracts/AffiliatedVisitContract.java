@@ -43,7 +43,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("No decision made", (!output.isAccepted()) && (!output.isRejected()));
+                require.using("No validations performed", (!output.isFirst_category()) && (!output.isSecond_category()));
+                require.using("Company Employee have to start the flow", output.getInitiator().getName().getOrganisation().equals("Company Employee"));
+                require.using("First data sharing executed and no recap requested", output.isDatashared_one() && !output.isDatashared_two() && !output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }

@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 public class PrivitySharingDataOneFlow {
 
-    private static String pathSource= "path_file";
+    private static String pathSource= "C:\\Users\\Alessandro\\Desktop\\Prova.zip";
 
     @InitiatingFlow
     @StartableByRPC
@@ -43,8 +43,6 @@ public class PrivitySharingDataOneFlow {
             this.idLinState = idLinState;
             this.receivers = receivers;
         }
-
-        // Step 1. Get a reference to the notary service on our network and our key pair.
 
         @Override
         @Suspendable
@@ -69,14 +67,16 @@ public class PrivitySharingDataOneFlow {
             SecureHash attachmentHash = null;
             try {
                 attachmentHash = SecureHash.parse(uploadAttachment(
-                        "path",
+                        pathSource,
                         getServiceHub(),
                         getOurIdentity(),
-                        "testzip")
+                        "Provazipfile")
                 );
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);
@@ -85,7 +85,7 @@ public class PrivitySharingDataOneFlow {
             builder.addInputState(inputState);
             builder.addOutputState(output);
             builder.addCommand(new AffiliatedVisitContract.Commands.PrivitySharingDataOne(), Arrays.asList(this.initiator.getOwningKey(), this.receivers.get(0).getOwningKey(), this.receivers.get(1).getOwningKey()));
-
+            builder.addAttachment(attachmentHash);
 
             // Step 5. Verify and sign it with our KeyPair.
             builder.verify(getServiceHub());
@@ -133,13 +133,8 @@ public class PrivitySharingDataOneFlow {
 
                     @Override
                     protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
-                        String hash = "";
-                        String pathDestination="";
-                        try {
-                            hash= stx.toLedgerTransaction(getServiceHub(), false).getAttachments().get(0).getId().toString();
-                        } catch (SignatureException e) {
-                            throw new RuntimeException(e);
-                        }
+                        /*String hash = "";
+                        String pathDestination="C:\\Users\\Alessandro\\Downloads\\";
                         Attachment content = getServiceHub().getAttachments().openAttachment(SecureHash.parse(hash));
                         try {
                             assert content != null;
@@ -151,7 +146,7 @@ public class PrivitySharingDataOneFlow {
                             new FileOutputStream(targetFile).write(buffer);
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }
+                        }*/
                     }
 
 
@@ -167,7 +162,7 @@ public class PrivitySharingDataOneFlow {
 
     private static String uploadAttachment(String path, ServiceHub service, Party whoami, String filename) throws IOException {
         SecureHash attachmentHash = service.getAttachments().importAttachment(
-                new FileInputStream(new File(path)),
+                new FileInputStream(path),
                 whoami.toString(),
                 filename
         );

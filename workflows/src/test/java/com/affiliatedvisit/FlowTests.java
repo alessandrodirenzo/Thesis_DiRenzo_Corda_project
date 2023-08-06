@@ -1,6 +1,7 @@
 package com.affiliatedvisit;
 
 import com.affiliatedvisit.flows.NewRequestOfAffiliatedVisitFlow;
+import com.affiliatedvisit.flows.PrivitySharingDataOneFlow;
 import com.affiliatedvisit.states.AffiliatedVisit;
 import com.google.common.collect.ImmutableList;
 import net.corda.core.concurrent.CordaFuture;
@@ -65,6 +66,25 @@ public class FlowTests {
         assert(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData() instanceof AffiliatedVisit);
         assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
         assertEquals(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().size(),0);
+
+    }
+
+    @Test
+    public void SharingDataCorrect() throws Exception {
+        NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
+        a.startFlow(flow);
+        network.runNetwork();
+
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator f= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        CordaFuture<SignedTransaction> future=a.startFlow(f);
+        network.runNetwork();
+        SignedTransaction ptx= future.get();
+
+        assert(ptx.getTx().getOutputs().get(0).getData() instanceof AffiliatedVisit);
+        assert(!ptx.getInputs().isEmpty());
+        assert(!ptx.getTx().getAttachments().isEmpty());
+        assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
+        assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
 
     }
 }
