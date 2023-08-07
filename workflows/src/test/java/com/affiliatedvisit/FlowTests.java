@@ -5,6 +5,8 @@ import com.affiliatedvisit.flows.PrivitySharingDataOneFlow;
 import com.affiliatedvisit.states.AffiliatedVisit;
 import com.google.common.collect.ImmutableList;
 import net.corda.core.concurrent.CordaFuture;
+import net.corda.core.contracts.Attachment;
+import net.corda.core.crypto.SecureHash;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.node.NetworkParameters;
 import net.corda.core.node.services.Vault;
@@ -79,10 +81,14 @@ public class FlowTests {
         CordaFuture<SignedTransaction> future=a.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();
+        SecureHash hash_attachment = ptx.getTx().getAttachments().get(0);
 
         assert(ptx.getTx().getOutputs().get(0).getData() instanceof AffiliatedVisit);
         assert(!ptx.getInputs().isEmpty());
         assert(!ptx.getTx().getAttachments().isEmpty());
+        assertEquals(a.getServices().getAttachments().openAttachment(hash_attachment).getId(), hash_attachment);
+        assertEquals(a.getServices().getAttachments().openAttachment(hash_attachment).getId(), b.getServices().getAttachments().openAttachment(hash_attachment).getId());
+        assertEquals(b.getServices().getAttachments().openAttachment(hash_attachment).getId(), c.getServices().getAttachments().openAttachment(hash_attachment).getId());
         assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
         assertEquals(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
 

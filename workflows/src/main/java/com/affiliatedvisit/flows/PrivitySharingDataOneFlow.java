@@ -100,12 +100,12 @@ public class PrivitySharingDataOneFlow {
                     .filter(it -> !it.equals(getOurIdentity()))
                     .map(this::initiateFlow)
                     .collect(Collectors.toList());
-            Party secondParty = output.getReceivers().get(1);
-            FlowSession extra = initiateFlow(secondParty);
+            //Party secondParty = output.getReceivers().get(1);
+            //FlowSession extra = initiateFlow(secondParty);
 
             final SignedTransaction fullySignedTx = subFlow(
                     new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
-            signerFlows.add(extra);
+            //signerFlows.add(extra);
             return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
 
         }
