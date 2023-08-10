@@ -3,15 +3,19 @@ package com.affiliatedvisit.flows;
 import co.paralleluniverse.fibers.Suspendable;
 import com.affiliatedvisit.contracts.AffiliatedVisitContract;
 import com.affiliatedvisit.states.AffiliatedVisit;
+import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.crypto.SecureHash;
 import net.corda.core.flows.*;
+import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
+import net.corda.core.node.services.Vault;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +28,11 @@ public class RejectionAssessmentFlow {
     //private variables
     private Party initiator ;
     private Party receiver;
-
+    private UniqueIdentifier idLinState;
     //public constructor
-    public RejectionAssessmentFlowInitiator(Party receiver) {
+    public RejectionAssessmentFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
+
+        this.idLinState = idLinState;
         this.receiver = receiver;
     }
 
@@ -37,37 +43,51 @@ public class RejectionAssessmentFlow {
 
         this.initiator = getOurIdentity();
 
-        // Step 1. Get a reference to the notary service on our network and our key pair.
-        /** Explicit selection of notary by CordaX500Nam*/
-        final Party notary = getServiceHub().getNetworkMapCache().getNotary(CordaX500Name.parse("O=Notary,L=Milan,C=IT"));
+        Vault.Page<AffiliatedVisit> results = getServiceHub().getVaultService()
+                .queryBy(AffiliatedVisit.class);
 
+        List<StateAndRef<AffiliatedVisit>> states = results.getStates();
 
-        final AffiliatedVisit output = new AffiliatedVisit(null, initiator,Arrays.asList(receiver), true, false, false, true, true,false,false,false);
+        final StateAndRef inputState = states.get(0);
+
+        final AffiliatedVisit input= (AffiliatedVisit) inputState.getState().getData();
+
+        Party notary = states.get(0).getState().getNotary();
+
+        final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator,Arrays.asList(receiver), true, false, false, true, true,false,false,false);
 
         //Step 2. Send personal data to the counterparty
-        FlowSession otherPartySession = initiateFlow(receiver);
-
+/*
         String rejdecision= "Rejection of the affiliated visit due to the pathology of employee not specified in the list";
 
         otherPartySession.send(rejdecision);
-
+*/
         // Step 3. Create a new TransactionBuilder object.
         final TransactionBuilder builder = new TransactionBuilder(notary);
 
         // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
+        builder.addInputState(inputState);
         builder.addOutputState(output);
-        builder.addCommand(new AffiliatedVisitContract.Commands.NewRequestOfAffiliatedVisit(), Arrays.asList(this.initiator.getOwningKey(),this.receiver.getOwningKey()) );
-
+        builder.addCommand(new AffiliatedVisitContract.Commands.RejectionAssessment(), Arrays.asList(output.getParticipants().get(0).getOwningKey(), output.getParticipants().get(1).getOwningKey()));
 
         // Step 5. Verify and sign it with our KeyPair.
         builder.verify(getServiceHub());
         final SignedTransaction ptx = getServiceHub().signInitialTransaction(builder);
 
-        // Step 6. Collect the other party's signature using the SignTransactionFlow.
+        ArrayList<AbstractParty> parties = new ArrayList<>();
+        parties = (ArrayList) output.getParticipants();
 
+        List<FlowSession> signerFlows = parties.stream()
+                // We don't need to inform ourselves and we signed already.
+                .filter(it -> !it.equals(getOurIdentity()))
+                .map(this::initiateFlow)
+                .collect(Collectors.toList());
+        
+        // Step 6. Collect the other party's signature using the SignTransactionFlow.
         final SignedTransaction fullySignedTx = subFlow(
-                new CollectSignaturesFlow(ptx, Arrays.asList(otherPartySession), CollectSignaturesFlow.Companion.tracker()));
-        return subFlow(new FinalityFlow(fullySignedTx, Arrays.asList(otherPartySession)));
+                new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
+        //signerFlows.add(extra);
+        return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
 
     }
 }
@@ -87,10 +107,11 @@ public static class RejectionAssessmentFlowResponder extends FlowLogic<Void>{
     public Void call() throws FlowException {
 
         // Receive the expected message from the initiator
+        /*
         String receivedMessage = counterpartySession.receive(String.class).unwrap(data -> data);
 
         System.out.println("Received message: " + receivedMessage);
-
+        */
         class SignTxFlow extends SignTransactionFlow {
             private SignTxFlow(FlowSession otherPartyFlow) {
                 super(otherPartyFlow);
@@ -102,7 +123,7 @@ public static class RejectionAssessmentFlowResponder extends FlowLogic<Void>{
 
 
         }
-        //Stored the transaction into data base.
+        //Stored the transaction into database.
         final SignTxFlow signTxFlow = new SignTxFlow(counterpartySession);
         final SecureHash txId = subFlow(signTxFlow).getId();
 

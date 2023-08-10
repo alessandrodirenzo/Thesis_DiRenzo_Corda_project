@@ -3,16 +3,19 @@ package com.affiliatedvisit.flows;
 import co.paralleluniverse.fibers.Suspendable;
 import com.affiliatedvisit.contracts.AffiliatedVisitContract;
 import com.affiliatedvisit.states.AffiliatedVisit;
+import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.crypto.SecureHash;
 import net.corda.core.flows.*;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
+import net.corda.core.node.services.Vault;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class AcceptanceAssessmentFlow {
     @InitiatingFlow
@@ -21,9 +24,11 @@ public class AcceptanceAssessmentFlow {
         //private variables
         private Party initiator ;
         private Party receiver;
+        private UniqueIdentifier idLinState;
 
         //public constructor
-        public AcceptanceAssessmentFlowInitiator(Party receiver) {
+        public AcceptanceAssessmentFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
+            this.idLinState = idLinState;
             this.receiver = receiver;
         }
 
@@ -31,14 +36,20 @@ public class AcceptanceAssessmentFlow {
         @Suspendable
         public SignedTransaction call() throws FlowException {
 
-
             this.initiator = getOurIdentity();
 
-            // Step 1. Get a reference to the notary service on our network and our key pair.
-            /** Explicit selection of notary by CordaX500Nam*/
-            final Party notary = getServiceHub().getNetworkMapCache().getNotary(CordaX500Name.parse("O=Notary,L=Milan,C=IT"));
+            Vault.Page<AffiliatedVisit> results = getServiceHub().getVaultService()
+                    .queryBy(AffiliatedVisit.class);
 
-            final AffiliatedVisit output = new AffiliatedVisit(null, initiator, Arrays.asList(receiver), true, false, true, false, true,false,false,false);
+            List<StateAndRef<AffiliatedVisit>> states = results.getStates();
+
+            final StateAndRef inputState = states.get(0);
+
+            final AffiliatedVisit input= (AffiliatedVisit) inputState.getState().getData();
+
+            Party notary = states.get(0).getState().getNotary();
+
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, false, true, false, true,false,false,false);
 
             //Step 2. Send personal data to the counterparty
             FlowSession otherPartySession = initiateFlow(receiver);
@@ -51,8 +62,9 @@ public class AcceptanceAssessmentFlow {
             final TransactionBuilder builder = new TransactionBuilder(notary);
 
             // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
+            builder.addInputState(inputState);
             builder.addOutputState(output);
-            builder.addCommand(new AffiliatedVisitContract.Commands.NewRequestOfAffiliatedVisit(), Arrays.asList(this.initiator.getOwningKey(),this.receiver.getOwningKey()) );
+            builder.addCommand(new AffiliatedVisitContract.Commands.AcceptanceAssessment(), Arrays.asList(this.initiator.getOwningKey(),this.receiver.getOwningKey()) );
 
 
             // Step 5. Verify and sign it with our KeyPair.

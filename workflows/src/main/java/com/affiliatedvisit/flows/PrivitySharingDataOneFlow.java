@@ -95,6 +95,8 @@ public class PrivitySharingDataOneFlow {
             ArrayList<AbstractParty> parties = new ArrayList<>();
             parties = (ArrayList) output.getParticipants();
 
+
+
             List<FlowSession> signerFlows = parties.stream()
                     // We don't need to inform ourselves and we signed already.
                     .filter(it -> !it.equals(getOurIdentity()))

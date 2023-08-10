@@ -57,7 +57,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Rejection decision", (!output.isAccepted()) && output.isRejected());
+                require.using("Validation performed by validators of second category", (!output.isFirst_category()) && output.isSecond_category());
+                require.using("Health Care Fund have to start the flow", output.getInitiator().getName().getOrganisation().equals("Health Care Fund"));
+                require.using("First data sharing executed and no recap requested", output.isDatashared_one() && !output.isDatashared_two() && !output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }
@@ -67,7 +71,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Rejection decision", (!output.isAccepted()) && output.isRejected());
+                require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
+                require.using("Health Care Fund have to start the flow", output.getInitiator().getName().getOrganisation().equals("Health Care Fund"));
+                require.using("First data sharing executed and no recap requested", output.isDatashared_one() && !output.isDatashared_two() && !output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }
@@ -77,7 +85,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
+                require.using("Validation performed by validators of second category", (!output.isFirst_category()) && output.isSecond_category());
+                require.using("Health Care Fund have to start the flow", output.getInitiator().getName().getOrganisation().equals("Health Care Fund"));
+                require.using("First data sharing executed and no recap requested", output.isDatashared_one() && !output.isDatashared_two() && !output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }
@@ -87,7 +99,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
+                require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
+                require.using("Health Care Fund have to start the flow", output.getInitiator().getName().getOrganisation().equals("Health Care Fund"));
+                require.using("First data sharing executed and no recap requested", output.isDatashared_one() && !output.isDatashared_two() && !output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }
@@ -97,7 +113,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
+                require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
+                require.using("Health Care Fund have to start the flow", output.getInitiator().getName().getOrganisation().equals("Health Care Fund"));
+                require.using("First data sharing executed and first recap required", output.isDatashared_one() && !output.isDatashared_two() && output.isRecap_one() && !output.isRecap_two());
                 return null;
             });
         }
@@ -107,7 +127,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
+                require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
+                require.using("Medical Office have to start the flow", output.getInitiator().getName().getOrganisation().equals("Medical Office"));
+                require.using("First data sharing executed and both recap sent", output.isDatashared_one() && !output.isDatashared_two() && output.isRecap_one() && output.isRecap_two());
                 return null;
             });
         }
@@ -118,7 +142,11 @@ public class AffiliatedVisitContract implements Contract {
 
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
-
+                require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
+                require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
+                require.using("Medical Office have to start the flow", output.getInitiator().getName().getOrganisation().equals("Medical Office"));
+                require.using("Both data sharing executed and both recap sent", output.isDatashared_one() && output.isDatashared_two() && output.isRecap_one() && output.isRecap_two());
                 return null;
             });
         }

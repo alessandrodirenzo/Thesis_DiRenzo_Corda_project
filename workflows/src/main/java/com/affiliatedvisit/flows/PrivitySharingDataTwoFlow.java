@@ -25,18 +25,18 @@ import java.util.stream.Collectors;
 
 public class PrivitySharingDataTwoFlow {
 
-    private static String pathSource= "path_file";
+    private static String pathSource= "C:\\Users\\Alessandro\\Desktop\\Prova.zip";
 
     @InitiatingFlow
     @StartableByRPC
     public static class PrivitySharingDataTwoFlowInitiator extends FlowLogic<SignedTransaction> {
-        private Party initiator;
-        private List<Party> receivers;
+        private Party initiator ;
+        private Party receiver;
         private UniqueIdentifier idLinState;
 
-        public PrivitySharingDataTwoFlowInitiator(UniqueIdentifier idLinState, List<Party> receivers) {
+        public PrivitySharingDataTwoFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
             this.idLinState = idLinState;
-            this.receivers = receivers;
+            this.receiver = receiver;
         }
 
         // Step 1. Get a reference to the notary service on our network and our key pair.
@@ -45,7 +45,6 @@ public class PrivitySharingDataTwoFlow {
         @Suspendable
         public SignedTransaction call() throws FlowException {
 
-
             this.initiator = getOurIdentity();
 
             Vault.Page<AffiliatedVisit> results = getServiceHub().getVaultService()
@@ -53,19 +52,21 @@ public class PrivitySharingDataTwoFlow {
 
             List<StateAndRef<AffiliatedVisit>> states = results.getStates();
 
-            final AffiliatedVisit inputState = states.get(0).getState().getData();
+            final StateAndRef inputState = states.get(0);
+
+            final AffiliatedVisit input= (AffiliatedVisit) inputState.getState().getData();
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(null, initiator, receivers, true, true, true, false, true,true,true,true);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,true,true,true);
 
             SecureHash attachmentHash = null;
             try {
                 attachmentHash = SecureHash.parse(uploadAttachment(
-                        "path",
+                        pathSource,
                         getServiceHub(),
                         getOurIdentity(),
-                        "testzip")
+                        "Provazipfile")
                 );
             } catch (IOException e) {
                 e.printStackTrace();
@@ -75,30 +76,21 @@ public class PrivitySharingDataTwoFlow {
             final TransactionBuilder builder = new TransactionBuilder(notary);
 
             // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
+            builder.addInputState(inputState);
             builder.addOutputState(output);
-            builder.addCommand(new AffiliatedVisitContract.Commands.PrivitySharingDataOne(), Arrays.asList(this.initiator.getOwningKey(), this.receivers.get(0).getOwningKey(), this.receivers.get(1).getOwningKey()));
+            builder.addCommand(new AffiliatedVisitContract.Commands.PrivitySharingDataOne(), Arrays.asList(this.initiator.getOwningKey(), this.receiver.getOwningKey()));
 
+            FlowSession otherPartySession = initiateFlow(receiver);
 
-            // Step 5. Verify and sign it with our KeyPair.
             builder.verify(getServiceHub());
             final SignedTransaction ptx = getServiceHub().signInitialTransaction(builder);
 
             // Step 6. Collect the other party's signature using the SignTransactionFlow.
-            ArrayList<AbstractParty> parties = new ArrayList<>();
-            parties = (ArrayList) output.getParticipants();
-
-            List<FlowSession> signerFlows = parties.stream()
-                    // We don't need to inform ourselves and we signed already.
-                    .filter(it -> !it.equals(getOurIdentity()))
-                    .map(this::initiateFlow)
-                    .collect(Collectors.toList());
-            Party secondParty = output.getReceivers().get(1);
-            FlowSession extra = initiateFlow(secondParty);
 
             final SignedTransaction fullySignedTx = subFlow(
-                    new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
-            signerFlows.add(extra);
-            return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
+                    new CollectSignaturesFlow(ptx, Arrays.asList(otherPartySession), CollectSignaturesFlow.Companion.tracker()));
+            return subFlow(new FinalityFlow(fullySignedTx, Arrays.asList(otherPartySession)));
+
 
         }
     }
@@ -125,7 +117,7 @@ public class PrivitySharingDataTwoFlow {
 
                 @Override
                 protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
-                    String hash = "";
+                    /*String hash = "";
                     String pathDestination="";
                     try {
                         hash= stx.toLedgerTransaction(getServiceHub(), false).getAttachments().get(0).getId().toString();
@@ -143,7 +135,7 @@ public class PrivitySharingDataTwoFlow {
                         new FileOutputStream(targetFile).write(buffer);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
 
 
