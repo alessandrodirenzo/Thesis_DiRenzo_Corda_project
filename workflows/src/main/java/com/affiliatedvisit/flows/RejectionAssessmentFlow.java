@@ -76,17 +76,25 @@ public class RejectionAssessmentFlow {
 
         ArrayList<AbstractParty> parties = new ArrayList<>();
         parties = (ArrayList) output.getParticipants();
-
+        FlowSession other =null;
         List<FlowSession> signerFlows = parties.stream()
                 // We don't need to inform ourselves and we signed already.
                 .filter(it -> !it.equals(getOurIdentity()))
                 .map(this::initiateFlow)
                 .collect(Collectors.toList());
-        
+        for (AbstractParty party: input.getParticipants()){
+                if (!output.getParticipants().contains(party)){
+                    System.out.println(party);
+                    other = initiateFlow(party);
+
+                }
+        }
+
         // Step 6. Collect the other party's signature using the SignTransactionFlow.
         final SignedTransaction fullySignedTx = subFlow(
                 new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
-        //signerFlows.add(extra);
+
+        signerFlows.add(other);
         return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
 
     }
