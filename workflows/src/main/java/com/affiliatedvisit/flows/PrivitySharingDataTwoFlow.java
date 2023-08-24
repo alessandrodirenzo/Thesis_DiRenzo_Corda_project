@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class PrivitySharingDataTwoFlow {
 
-    private static String pathSource= "C:\\Users\\Alessandro\\Desktop\\Prova.zip";
+    private static String pathSource= "C:\\Users\\Alessandro\\Desktop\\Prova2.zip";
 
     @InitiatingFlow
     @StartableByRPC
@@ -66,7 +66,7 @@ public class PrivitySharingDataTwoFlow {
                         pathSource,
                         getServiceHub(),
                         getOurIdentity(),
-                        "Provazipfile")
+                        "Provazipfile2")
                 );
             } catch (IOException e) {
                 e.printStackTrace();
@@ -78,18 +78,34 @@ public class PrivitySharingDataTwoFlow {
             // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
             builder.addInputState(inputState);
             builder.addOutputState(output);
-            builder.addCommand(new AffiliatedVisitContract.Commands.PrivitySharingDataOne(), Arrays.asList(this.initiator.getOwningKey(), this.receiver.getOwningKey()));
+            builder.addCommand(new AffiliatedVisitContract.Commands.PrivitySharingDataTwo(), Arrays.asList(this.initiator.getOwningKey(), this.receiver.getOwningKey()));
 
             FlowSession otherPartySession = initiateFlow(receiver);
 
             builder.verify(getServiceHub());
             final SignedTransaction ptx = getServiceHub().signInitialTransaction(builder);
+            ArrayList<AbstractParty> parties = new ArrayList<>();
+            parties = (ArrayList) output.getParticipants();
+            FlowSession other =null;
+            List<FlowSession> signerFlows = parties.stream()
+                    // We don't need to inform ourselves and we signed already.
+                    .filter(it -> !it.equals(getOurIdentity()))
+                    .map(this::initiateFlow)
+                    .collect(Collectors.toList());
+            for (AbstractParty party: input.getParticipants()){
+                if (!output.getParticipants().contains(party)){
+                  // System.out.println(party);
+                    other = initiateFlow(party);
+
+                }
+            }
 
             // Step 6. Collect the other party's signature using the SignTransactionFlow.
-
             final SignedTransaction fullySignedTx = subFlow(
-                    new CollectSignaturesFlow(ptx, Arrays.asList(otherPartySession), CollectSignaturesFlow.Companion.tracker()));
-            return subFlow(new FinalityFlow(fullySignedTx, Arrays.asList(otherPartySession)));
+                    new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
+
+            signerFlows.add(other);
+            return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
 
 
         }

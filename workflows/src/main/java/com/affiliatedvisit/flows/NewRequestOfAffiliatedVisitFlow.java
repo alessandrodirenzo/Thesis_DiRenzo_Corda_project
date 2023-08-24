@@ -51,7 +51,7 @@ public class NewRequestOfAffiliatedVisitFlow {
             //Step 2. Send personal data to the counterparty
             FlowSession otherPartySession = initiateFlow(receiver);
 
-            String personaldata= "Trial message";
+            String personaldata= "Name: Company Employee; Id: CMPEPL81R12S345T";
 
             otherPartySession.send(personaldata);
 

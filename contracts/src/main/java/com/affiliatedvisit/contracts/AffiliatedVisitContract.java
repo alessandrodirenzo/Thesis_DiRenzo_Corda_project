@@ -110,10 +110,11 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.NewVisitRequest) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
-
+            AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && input.isFirst_category() && input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two());
                 require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
                 require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
                 require.using("Health Care Fund have to start the flow", output.getInitiator().getName().getOrganisation().equals("Health Care Fund"));
@@ -124,10 +125,11 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.RecapConventionWithAvailableDatesForBooking) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
-
+            AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && input.isFirst_category() && input.isSecond_category() && input.isRecap_one() && !input.isRecap_two());
                 require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
                 require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
                 require.using("Medical Office have to start the flow", output.getInitiator().getName().getOrganisation().equals("Medical Office"));
@@ -139,10 +141,11 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.PrivitySharingDataTwo) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
-
+            AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
             //Using Corda DSL function requireThat to replicate conditions-checks
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
+                require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && input.isFirst_category() && input.isSecond_category() && input.isRecap_one() && input.isRecap_two()) ;
                 require.using("Acceptance decision", output.isAccepted() && !output.isRejected());
                 require.using("Validation performed by validators of both categories", output.isFirst_category() && output.isSecond_category());
                 require.using("Medical Office have to start the flow", output.getInitiator().getName().getOrganisation().equals("Medical Office"));

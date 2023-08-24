@@ -7,6 +7,7 @@ import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.crypto.SecureHash;
 import net.corda.core.flows.*;
+import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.node.services.Vault;
@@ -14,6 +15,7 @@ import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,12 +78,28 @@ public class NewVisitRequestFlow {
             builder.verify(getServiceHub());
             final SignedTransaction ptx = getServiceHub().signInitialTransaction(builder);
 
+            ArrayList<AbstractParty> parties = new ArrayList<>();
+            parties = (ArrayList) output.getParticipants();
+            FlowSession other =null;
+            List<FlowSession> signerFlows = parties.stream()
+                    // We don't need to inform ourselves and we signed already.
+                    .filter(it -> !it.equals(getOurIdentity()))
+                    .map(this::initiateFlow)
+                    .collect(Collectors.toList());
+            for (AbstractParty party: input.getParticipants()){
+                if (!output.getParticipants().contains(party)){
+                   // System.out.println(party);
+                    other = initiateFlow(party);
+
+                }
+            }
+
             // Step 6. Collect the other party's signature using the SignTransactionFlow.
-
             final SignedTransaction fullySignedTx = subFlow(
-                    new CollectSignaturesFlow(ptx, Arrays.asList(otherPartySession), CollectSignaturesFlow.Companion.tracker()));
-            return subFlow(new FinalityFlow(fullySignedTx, Arrays.asList(otherPartySession)));
+                    new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
 
+            signerFlows.add(other);
+            return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
         }
     }
 

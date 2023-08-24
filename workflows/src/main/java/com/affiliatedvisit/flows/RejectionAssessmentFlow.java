@@ -84,7 +84,7 @@ public class RejectionAssessmentFlow {
                 .collect(Collectors.toList());
         for (AbstractParty party: input.getParticipants()){
                 if (!output.getParticipants().contains(party)){
-                    System.out.println(party);
+                  //  System.out.println(party);
                     other = initiateFlow(party);
 
                 }
