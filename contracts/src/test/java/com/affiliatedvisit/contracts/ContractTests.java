@@ -33,6 +33,16 @@ public class ContractTests {
 
     private AffiliatedVisit state8 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, false,true, true, true,false,false);
 
+    private AffiliatedVisit state9 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, true, true,false, true, false,true,false);
+
+    private AffiliatedVisit state10 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, true, true,false, true, false,false,false);
+
+    private AffiliatedVisit state11 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,true,true);
+
+    private AffiliatedVisit state12 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, true,true,true);
+
+    private AffiliatedVisit state13 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,true,true);
+
     @Test
     public void NewRequestOfAffiliatedVisitCorrectInputsandOutputs() {
 
@@ -166,6 +176,83 @@ public class ContractTests {
             tx.input(AffiliatedVisitContract.ID, state4);
             tx.output(AffiliatedVisitContract.ID, state7);
             tx.command(Arrays.asList(compB.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.RequestAccepted());
+            tx.verifies();
+            return null;
+        });
+    }
+
+    @Test
+    public void NewVisitRequestCorrectInputandOutputs() {
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state6);
+            tx.output(AffiliatedVisitContract.ID, state9);
+            tx.command(Arrays.asList(compB.getPublicKey(), compC.getPublicKey()), new AffiliatedVisitContract.Commands.NewVisitRequest());
+            tx.fails(); //fails because of the attribute rejected is true
+            return null;
+        });
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state7);
+            tx.output(AffiliatedVisitContract.ID, state10);
+            tx.command(Arrays.asList(compB.getPublicKey(), compC.getPublicKey()), new AffiliatedVisitContract.Commands.NewVisitRequest());
+            tx.fails(); //fails because of the attribute recap_one is false
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state7);
+            tx.output(AffiliatedVisitContract.ID, state9);
+            tx.command(Arrays.asList(compB.getPublicKey(), compC.getPublicKey()), new AffiliatedVisitContract.Commands.NewVisitRequest());
+            tx.verifies();
+            return null;
+        });
+    }
+    @Test
+    public void RecapConventionWithAvailableDatesCorrectInputandOutputs() {
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state8);
+            tx.output(AffiliatedVisitContract.ID, state11);
+            tx.command(Arrays.asList(compC.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.RecapConventionWithAvailableDatesForBooking());
+            tx.fails(); //fails because of the attribute rejected is true
+            return null;
+        });
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state9);
+            tx.output(AffiliatedVisitContract.ID, state10);
+            tx.command(Arrays.asList(compC.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.RecapConventionWithAvailableDatesForBooking());
+            tx.fails(); //fails because of the attribute recap_one is false
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state9);
+            tx.output(AffiliatedVisitContract.ID, state11);
+            tx.command(Arrays.asList(compC.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.RecapConventionWithAvailableDatesForBooking());
+            tx.verifies();
+            return null;
+        });
+    }
+
+    @Test
+    public void PrivitySharingDataTwoCorrectInputandOutputs() {
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state10);
+            tx.output(AffiliatedVisitContract.ID, state12);
+            tx.command(Arrays.asList(compC.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.PrivitySharingDataTwo());
+            tx.fails(); //fails because of the input state has attribute recap_one set to false
+            return null;
+        });
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state11);
+            tx.output(AffiliatedVisitContract.ID, state13);
+            tx.command(Arrays.asList(compC.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.PrivitySharingDataTwo());
+            tx.fails(); //fails because of the output state has the attribute datashared_two set ot false
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            tx.input(AffiliatedVisitContract.ID, state11);
+            tx.output(AffiliatedVisitContract.ID, state12);
+            tx.command(Arrays.asList(compC.getPublicKey(), compA.getPublicKey()), new AffiliatedVisitContract.Commands.PrivitySharingDataTwo());
             tx.verifies();
             return null;
         });
