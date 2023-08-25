@@ -55,10 +55,10 @@ public class RecapConventionWithAvailableDatesForBookingFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true, false, true,true);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true, false, true,true, "There is the necessity to contact the company employee in order to schedule the visit. Please, send her a calendar with available dates for booking.");
 
             //Step 2. Send personal data to the counterparty
-            FlowSession otherPartySession = initiateFlow(receiver);
+           // FlowSession otherPartySession = initiateFlow(receiver);
 
            // String recapemployeedata = "There is the necessity to contact the company employee in order to schedule the visit. Please, send her a calendar with available dates for booking";
 
@@ -117,9 +117,9 @@ public class RecapConventionWithAvailableDatesForBookingFlow {
         public Void call() throws FlowException {
 
             // Receive the expected message from the initiator
-            String receivedMessage = counterpartySession.receive(String.class).unwrap(data -> data);
+           // String receivedMessage = counterpartySession.receive(String.class).unwrap(data -> data);
 
-            System.out.println("Received message: " + receivedMessage);
+          //  System.out.println("Received message: " + receivedMessage);
 
             class SignTxFlow extends SignTransactionFlow {
                 private SignTxFlow(FlowSession otherPartyFlow) {

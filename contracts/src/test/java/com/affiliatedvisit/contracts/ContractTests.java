@@ -20,28 +20,28 @@ public class ContractTests {
     private final TestIdentity compC = new TestIdentity(new CordaX500Name("Medical Office",  "Milan",  "IT"));
 
     UniqueIdentifier id = new UniqueIdentifier();
-    private AffiliatedVisit state1 = new AffiliatedVisit(id, compA.getParty(), Arrays.asList(compB.getParty()), false, false, false, false,false, false, false,false);
-    private AffiliatedVisit state2 = new AffiliatedVisit(id, compA.getParty(), Arrays.asList(compB.getParty(),compC.getParty()), false, false, false, false,true, false, false,false);
-    private AffiliatedVisit state3 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, false, false,true, true, false,false,false);
+    private AffiliatedVisit state1 = new AffiliatedVisit(id, compA.getParty(), Arrays.asList(compB.getParty()), false, false, false, false,false, false, false,false, "message 1");
+    private AffiliatedVisit state2 = new AffiliatedVisit(id, compA.getParty(), Arrays.asList(compB.getParty(),compC.getParty()), false, false, false, false,true, false, false,false, "");
+    private AffiliatedVisit state3 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, false, false,true, true, false,false,false, "message 1");
 
-    private AffiliatedVisit state4 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, false, true,false, true, false,false,false);
+    private AffiliatedVisit state4 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, false, true,false, true, false,false,false, "message 1");
 
-    private AffiliatedVisit state5 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, false, true,true, true, false,false,false);
-    private AffiliatedVisit state6 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, false,true, true, false,false,false);
+    private AffiliatedVisit state5 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, false, true,true, true, false,false,false, "message 1");
+    private AffiliatedVisit state6 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, false,true, true, false,false,false, "message 1");
 
-    private AffiliatedVisit state7 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,false,false);
+    private AffiliatedVisit state7 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,false,false, "message 1");
 
-    private AffiliatedVisit state8 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, false,true, true, true,false,false);
+    private AffiliatedVisit state8 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compA.getParty()), true, true, false,true, true, true,false,false, "message 1");
 
-    private AffiliatedVisit state9 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, true, true,false, true, false,true,false);
+    private AffiliatedVisit state9 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, true, true,false, true, false,true,false, "message 1");
 
-    private AffiliatedVisit state10 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, true, true,false, true, false,false,false);
+    private AffiliatedVisit state10 = new AffiliatedVisit(id, compB.getParty(), Arrays.asList(compC.getParty()), true, true, true,false, true, false,false,false, "message 1");
 
-    private AffiliatedVisit state11 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,true,true);
+    private AffiliatedVisit state11 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,true,true, "message 1");
 
-    private AffiliatedVisit state12 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, true,true,true);
+    private AffiliatedVisit state12 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, true,true,true, "");
 
-    private AffiliatedVisit state13 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,true,true);
+    private AffiliatedVisit state13 = new AffiliatedVisit(id, compC.getParty(), Arrays.asList(compA.getParty()), true, true, true,false, true, false,true,true, "message 1");
 
     @Test
     public void NewRequestOfAffiliatedVisitCorrectInputsandOutputs() {

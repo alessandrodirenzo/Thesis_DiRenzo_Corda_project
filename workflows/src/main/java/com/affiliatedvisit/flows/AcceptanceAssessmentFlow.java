@@ -52,14 +52,11 @@ public class AcceptanceAssessmentFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, false, true, false, true,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, false, true, false, true,false,false,false, "The request of affiliated visit of company employee has been accepted.");
 
-            //Step 2. Send personal data to the counterparty
-            FlowSession otherPartySession = initiateFlow(receiver);
+            //Step 2. Initiate flow with counterparty
+            //FlowSession otherPartySession = initiateFlow(receiver);
 
-           // String acceptancedecision= "The request of affiliated visit of company employee has been accepted.";
-
-           // otherPartySession.send(acceptancedecision);
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);

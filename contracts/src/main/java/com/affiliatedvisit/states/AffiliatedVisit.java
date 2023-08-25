@@ -32,8 +32,10 @@ public class AffiliatedVisit implements ContractState{
     private boolean recap_one;
     private boolean recap_two;
 
+    private String message;
+
     /* Constructor of Affiliated Visit State */
-    public AffiliatedVisit(UniqueIdentifier idState, Party initiator, List<Party> receivers, boolean second_category, boolean first_category, boolean accepted, boolean rejected, boolean datashared_one, boolean datashared_two, boolean recap_one, boolean recap_two) {
+    public AffiliatedVisit(UniqueIdentifier idState, Party initiator, List<Party> receivers, boolean second_category, boolean first_category, boolean accepted, boolean rejected, boolean datashared_one, boolean datashared_two, boolean recap_one, boolean recap_two, String message) {
         this.initiator = initiator;
         this.receivers = receivers;
         this.second_category = second_category;
@@ -45,6 +47,7 @@ public class AffiliatedVisit implements ContractState{
         this.recap_one = recap_one;
         this.recap_two = recap_two;
         this.idState = idState;
+        this.message = message;
     }
 
 
@@ -97,5 +100,9 @@ public class AffiliatedVisit implements ContractState{
 
     public UniqueIdentifier getIdState() {
         return idState;
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

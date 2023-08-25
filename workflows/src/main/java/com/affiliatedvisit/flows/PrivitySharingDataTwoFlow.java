@@ -58,7 +58,7 @@ public class PrivitySharingDataTwoFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,true,true,true);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,true,true,true, "");
 
             SecureHash attachmentHash = null;
             try {
@@ -104,7 +104,7 @@ public class PrivitySharingDataTwoFlow {
             final SignedTransaction fullySignedTx = subFlow(
                     new CollectSignaturesFlow(ptx, signerFlows, CollectSignaturesFlow.Companion.tracker()));
 
-            signerFlows.add(other);
+           // signerFlows.add(other);
             return subFlow(new FinalityFlow(fullySignedTx, signerFlows));
 
 
@@ -167,7 +167,7 @@ public class PrivitySharingDataTwoFlow {
 
     private static String uploadAttachment(String path, ServiceHub service, Party whoami, String filename) throws IOException {
         SecureHash attachmentHash = service.getAttachments().importAttachment(
-                new FileInputStream(new File(path)),
+                new FileInputStream(path),
                 whoami.toString(),
                 filename
         );

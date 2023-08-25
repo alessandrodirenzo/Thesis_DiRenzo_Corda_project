@@ -46,14 +46,11 @@ public class NewRequestOfAffiliatedVisitFlow {
 
             final UniqueIdentifier idState = new UniqueIdentifier();
 
-            final AffiliatedVisit output = new AffiliatedVisit(idState, initiator,Arrays.asList(receiver), false, false, false, false,false,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(idState, initiator,Arrays.asList(receiver), false, false, false, false,false,false,false,false, "Name: Company Employee; Id: CMPEPL81R12S345T");
 
-            //Step 2. Send personal data to the counterparty
+            //Step 2. Initiate flow with counterparty
             FlowSession otherPartySession = initiateFlow(receiver);
 
-            String personaldata= "Name: Company Employee; Id: CMPEPL81R12S345T";
-
-            otherPartySession.send(personaldata);
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);
@@ -89,11 +86,6 @@ public class NewRequestOfAffiliatedVisitFlow {
         @Suspendable
         @Override
         public Void call() throws FlowException {
-
-            // Receive the expected message from the initiator
-            String receivedMessage = counterpartySession.receive(String.class).unwrap(data -> data);
-
-            System.out.println("Received message: " + receivedMessage);
 
             class SignTxFlow extends SignTransactionFlow {
                 private SignTxFlow(FlowSession otherPartyFlow) {

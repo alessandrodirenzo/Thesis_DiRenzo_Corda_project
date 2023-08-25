@@ -53,10 +53,10 @@ public class RequestAcceptedFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,false,false,false, "Your request of affiliated visit has been completed successfully.");
 
             //Step 2. Send personal data to the counterparty
-            FlowSession otherPartySession = initiateFlow(receiver);
+           // FlowSession otherPartySession = initiateFlow(receiver);
 
           //  String confirmation= "Your request of affiliated visit has been completed successfully.";
 

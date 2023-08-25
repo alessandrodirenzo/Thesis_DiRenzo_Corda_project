@@ -175,5 +175,91 @@ public class FlowTests {
         assertEquals(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
 
     }
+    @Test
+    public void NewVisitRequestFlowCorrect() throws Exception {
+        NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
+        a.startFlow(flow);
+        network.runNetwork();
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        a.startFlow(flow2);
+        network.runNetwork();
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow3);
+        network.runNetwork();
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow4);
+        network.runNetwork();
+
+        NewVisitRequestFlow.NewVisitRequestFlowInitiator f = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        CordaFuture<SignedTransaction> future=b.startFlow(f);
+        network.runNetwork();
+        SignedTransaction ptx= future.get();
+
+        assert(ptx.getTx().getOutputs().get(0).getData() instanceof AffiliatedVisit);
+        assert(!ptx.getInputs().isEmpty());
+        assertEquals(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
+
+    }
+
+    @Test
+    public void RecapConventionWithAvailableDatesForBookingFlowCorrect() throws Exception {
+        NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
+        a.startFlow(flow);
+        network.runNetwork();
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        a.startFlow(flow2);
+        network.runNetwork();
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow3);
+        network.runNetwork();
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow4);
+        network.runNetwork();
+        NewVisitRequestFlow.NewVisitRequestFlowInitiator flow5 = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow5);
+        network.runNetwork();
+
+        RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator f = new RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        CordaFuture<SignedTransaction> future=c.startFlow(f);
+        network.runNetwork();
+        SignedTransaction ptx= future.get();
+
+        assert(ptx.getTx().getOutputs().get(0).getData() instanceof AffiliatedVisit);
+        assert(!ptx.getInputs().isEmpty());
+        assertEquals(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
+
+    }
+
+    @Test
+    public void PrivitySharingDataTwoFlowCorrect() throws Exception {
+        NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
+        a.startFlow(flow);
+        network.runNetwork();
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        a.startFlow(flow2);
+        network.runNetwork();
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow3);
+        network.runNetwork();
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow4);
+        network.runNetwork();
+        NewVisitRequestFlow.NewVisitRequestFlowInitiator flow5 = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        b.startFlow(flow5);
+        network.runNetwork();
+        RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator flow6 = new RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        c.startFlow(flow6);
+        network.runNetwork();
+
+        PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator f = new PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        CordaFuture<SignedTransaction> future=c.startFlow(f);
+        network.runNetwork();
+        SignedTransaction ptx= future.get();
+
+        assert(ptx.getTx().getOutputs().get(0).getData() instanceof AffiliatedVisit);
+        assert(!ptx.getInputs().isEmpty());
+        assertEquals(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState());
+
+    }
 
 }

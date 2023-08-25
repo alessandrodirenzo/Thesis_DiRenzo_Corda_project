@@ -54,7 +54,7 @@ public class RejectionAssessmentFlow {
 
         Party notary = states.get(0).getState().getNotary();
 
-        final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator,Arrays.asList(receiver), true, false, false, true, true,false,false,false);
+        final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator,Arrays.asList(receiver), true, false, false, true, true,false,false,false, "Rejection of the affiliated visit due to the pathology of employee not specified in the list");
 
         //Step 2. Send personal data to the counterparty
 /*

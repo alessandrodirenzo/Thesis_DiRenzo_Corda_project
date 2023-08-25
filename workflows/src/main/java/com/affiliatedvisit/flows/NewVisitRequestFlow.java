@@ -56,14 +56,11 @@ public class NewVisitRequestFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,false,true,false);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, true, false, true,false,true,false, "There is the necessity to contact the company employee in order to schedule the visit. Please, send her a calendar with available dates for booking");
 
             //Step 2. Send personal data to the counterparty
-            FlowSession otherPartySession = initiateFlow(receiver);
+           // FlowSession otherPartySession = initiateFlow(receiver);
 
-            String recapemployeedata = "There is the necessity to contact the company employee in order to schedule the visit. Please, send her a calendar with available dates for booking";
-
-            otherPartySession.send(recapemployeedata);
 
             // Step 3. Create a new TransactionBuilder object.
             final TransactionBuilder builder = new TransactionBuilder(notary);
@@ -116,11 +113,6 @@ public class NewVisitRequestFlow {
         @Suspendable
         @Override
         public Void call() throws FlowException {
-
-            // Receive the expected message from the initiator
-            String receivedMessage = counterpartySession.receive(String.class).unwrap(data -> data);
-
-            System.out.println("Received message: " + receivedMessage);
 
             class SignTxFlow extends SignTransactionFlow {
                 private SignTxFlow(FlowSession otherPartyFlow) {

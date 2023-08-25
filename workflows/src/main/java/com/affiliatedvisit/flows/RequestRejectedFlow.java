@@ -57,10 +57,10 @@ public class RequestRejectedFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, false, true, true,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit(input.getIdState(), initiator, Arrays.asList(receiver), true, true, false, true, true,false,false,false, "Your request has been rejected since your pathology is not in the list of affiliated pathology.");
 
             //Step 2. Send personal data to the counterparty
-            FlowSession otherPartySession = initiateFlow(receiver);
+           // FlowSession otherPartySession = initiateFlow(receiver);
 
            // String refusal= "Your request has been rejected since your pathology is not in the list of affiliated pathology.";
 

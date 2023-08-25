@@ -62,7 +62,7 @@ public class PrivitySharingDataOneFlow {
 
             Party notary = states.get(0).getState().getNotary();
 
-            final AffiliatedVisit output = new AffiliatedVisit( input.getIdState(),initiator, receivers, false, false, false, false, true,false,false,false);
+            final AffiliatedVisit output = new AffiliatedVisit( input.getIdState(),initiator, receivers, false, false, false, false, true,false,false,false, "");
 
             SecureHash attachmentHash = null;
             try {

@@ -19,6 +19,9 @@ public class StateTests {
         AffiliatedVisit.class.getDeclaredField("second_category");
         AffiliatedVisit.class.getDeclaredField("accepted");
         AffiliatedVisit.class.getDeclaredField("rejected");
+        AffiliatedVisit.class.getDeclaredField("recap_one");
+        AffiliatedVisit.class.getDeclaredField("recap_two");
+        AffiliatedVisit.class.getDeclaredField("message");
         assert(AffiliatedVisit.class.getDeclaredField("idState").getType().equals(UniqueIdentifier.class));
         assert(AffiliatedVisit.class.getDeclaredField("initiator").getType().equals(Party.class));
         assert(AffiliatedVisit.class.getDeclaredField("receivers").getType().equals(List.class));
@@ -26,5 +29,9 @@ public class StateTests {
         assert(AffiliatedVisit.class.getDeclaredField("second_category").getType().equals(boolean.class));
         assert(AffiliatedVisit.class.getDeclaredField("accepted").getType().equals(boolean.class));
         assert(AffiliatedVisit.class.getDeclaredField("rejected").getType().equals(boolean.class));
+        assert(AffiliatedVisit.class.getDeclaredField("recap_one").getType().equals(boolean.class));
+        assert(AffiliatedVisit.class.getDeclaredField("recap_two").getType().equals(boolean.class));
+        assert(AffiliatedVisit.class.getDeclaredField("message").getType().equals(String.class));
+
     }
 }
