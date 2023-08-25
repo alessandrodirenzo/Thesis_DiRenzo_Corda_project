@@ -41,7 +41,8 @@ public class NewRequestOfAffiliatedVisitFlow {
             this.initiator = getOurIdentity();
 
             // Step 1. Get a reference to the notary service on our network and our key pair.
-            /** Explicit selection of notary by CordaX500Nam*/
+            /** Explicit selection of notary by CordaX500Name
+             **/
             final Party notary = getServiceHub().getNetworkMapCache().getNotary(CordaX500Name.parse("O=Notary,L=Milan,C=IT"));
 
             final UniqueIdentifier idState = new UniqueIdentifier();
