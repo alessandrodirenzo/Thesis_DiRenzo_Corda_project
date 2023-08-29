@@ -25,8 +25,7 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.NewRequestOfAffiliatedVisit) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
-
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("No inputs should be consumed when asking new request of affiliated visit.", tx.getInputStates().isEmpty());
                 require.using("Message not null", !output.getMessage().equals(""));
@@ -41,8 +40,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.PrivitySharingDataOne) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", !input.isAccepted() && !input.isRejected() && !input.isDatashared_one() && !input.isDatashared_two() && !input.isFirst_category() && !input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two() && !input.getMessage().equals(""));
@@ -56,8 +56,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.RejectionAssessment) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", !input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && !input.isFirst_category() && !input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two());
@@ -72,8 +73,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.RequestRejected) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", !input.isAccepted() && input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && !input.isFirst_category() && input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two() && !input.getMessage().equals(""));
@@ -89,8 +91,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.AcceptanceAssessment) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", !input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && !input.isFirst_category() && !input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two() );
@@ -105,8 +108,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.RequestAccepted) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && !input.isFirst_category() && input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two() && !input.getMessage().equals(""));
@@ -121,8 +125,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.NewVisitRequest) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && input.isFirst_category() && input.isSecond_category() && !input.isRecap_one() && !input.isRecap_two() && !input.getMessage().equals(""));
@@ -137,8 +142,9 @@ public class AffiliatedVisitContract implements Contract {
         if (commandData instanceof Commands.RecapConventionWithAvailableDatesForBooking) {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
+            //Retrieve the input state of the transaction
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && input.isFirst_category() && input.isSecond_category() && input.isRecap_one() && !input.isRecap_two() && !input.getMessage().equals(""));
@@ -155,7 +161,7 @@ public class AffiliatedVisitContract implements Contract {
             //Retrieve the output state of the transaction
             AffiliatedVisit output = tx.outputsOfType(AffiliatedVisit.class).get(0);
             AffiliatedVisit input = tx.inputsOfType(AffiliatedVisit.class).get(0);
-            //Using Corda DSL function requireThat to replicate conditions-checks
+            //Checks to perform in order to validate the transaction
             requireThat(require -> {
                 require.using("Input state present", !tx.getInputStates().isEmpty());
                 require.using("Input state with attributes values", input.isAccepted() && !input.isRejected() && input.isDatashared_one() && !input.isDatashared_two() && input.isFirst_category() && input.isSecond_category() && input.isRecap_one() && input.isRecap_two() && !input.getMessage().equals("")) ;
