@@ -27,11 +27,9 @@ public class AcceptanceAssessmentFlow {
         //private variables
         private Party initiator ;
         private Party receiver;
-        private UniqueIdentifier idLinState;
 
         //public constructor
-        public AcceptanceAssessmentFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
-            this.idLinState = idLinState;
+        public AcceptanceAssessmentFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 

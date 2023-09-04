@@ -28,12 +28,11 @@ public class RecapConventionWithAvailableDatesForBookingFlow {
         //private variables
         private Party initiator;
         private Party receiver;
-        private UniqueIdentifier idLinState;
+
 
         //public constructor
-        public RecapConventionWithAvailableDatesForBookingFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
+        public RecapConventionWithAvailableDatesForBookingFlowInitiator(Party receiver) {
 
-            this.idLinState = idLinState;
             this.receiver = receiver;
         }
 

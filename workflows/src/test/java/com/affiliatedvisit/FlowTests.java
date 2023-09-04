@@ -76,7 +76,7 @@ public class FlowTests {
         a.startFlow(flow);
         network.runNetwork();
 
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator f= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator f= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         CordaFuture<SignedTransaction> future=a.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -98,11 +98,11 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
 
-        RejectionAssessmentFlow.RejectionAssessmentFlowInitiator flow3 = new RejectionAssessmentFlow.RejectionAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        RejectionAssessmentFlow.RejectionAssessmentFlowInitiator flow3 = new RejectionAssessmentFlow.RejectionAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=b.startFlow(flow3);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -117,10 +117,10 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
-        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=b.startFlow(flow3);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -135,14 +135,14 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
-        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow3);
         network.runNetwork();
 
-        RequestAcceptedFlow.RequestAcceptedFlowInitiator f = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator f = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=b.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -158,14 +158,14 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
-        RejectionAssessmentFlow.RejectionAssessmentFlowInitiator flow3 = new RejectionAssessmentFlow.RejectionAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        RejectionAssessmentFlow.RejectionAssessmentFlowInitiator flow3 = new RejectionAssessmentFlow.RejectionAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow3);
         network.runNetwork();
 
-        RequestRejectedFlow.RequestRejectedFlowInitiator f = new RequestRejectedFlow.RequestRejectedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RequestRejectedFlow.RequestRejectedFlowInitiator f = new RequestRejectedFlow.RequestRejectedFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=b.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -180,17 +180,17 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
-        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow3);
         network.runNetwork();
-        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow4);
         network.runNetwork();
 
-        NewVisitRequestFlow.NewVisitRequestFlowInitiator f = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        NewVisitRequestFlow.NewVisitRequestFlowInitiator f = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=b.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -206,20 +206,20 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
-        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow3);
         network.runNetwork();
-        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow4);
         network.runNetwork();
-        NewVisitRequestFlow.NewVisitRequestFlowInitiator flow5 = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        NewVisitRequestFlow.NewVisitRequestFlowInitiator flow5 = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow5);
         network.runNetwork();
 
-        RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator f = new RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator f = new RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=c.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();
@@ -235,23 +235,23 @@ public class FlowTests {
         NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator flow = new NewRequestOfAffiliatedVisitFlow.NewRequestOfAffiliatedVisitFlowInitiator( b.getInfo().getLegalIdentities().get(0));
         a.startFlow(flow);
         network.runNetwork();
-        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(a.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
+        PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator flow2= new PrivitySharingDataOneFlow.PrivitySharingDataOneFlowInitiator(Arrays.asList(b.getInfo().getLegalIdentities().get(0),c.getInfo().getLegalIdentities().get(0)));
         a.startFlow(flow2);
         network.runNetwork();
-        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator flow3 = new AcceptanceAssessmentFlow.AcceptanceAssessmentFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow3);
         network.runNetwork();
-        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RequestAcceptedFlow.RequestAcceptedFlowInitiator flow4 = new RequestAcceptedFlow.RequestAcceptedFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow4);
         network.runNetwork();
-        NewVisitRequestFlow.NewVisitRequestFlowInitiator flow5 = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(b.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),c.getInfo().getLegalIdentities().get(0));
+        NewVisitRequestFlow.NewVisitRequestFlowInitiator flow5 = new NewVisitRequestFlow.NewVisitRequestFlowInitiator(c.getInfo().getLegalIdentities().get(0));
         b.startFlow(flow5);
         network.runNetwork();
-        RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator flow6 = new RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator flow6 = new RecapConventionWithAvailableDatesForBookingFlow.RecapConventionWithAvailableDatesForBookingFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         c.startFlow(flow6);
         network.runNetwork();
 
-        PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator f = new PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator(c.getServices().getVaultService().queryBy(AffiliatedVisit.class).getStates().get(0).getState().getData().getIdState(),a.getInfo().getLegalIdentities().get(0));
+        PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator f = new PrivitySharingDataTwoFlow.PrivitySharingDataTwoFlowInitiator(a.getInfo().getLegalIdentities().get(0));
         CordaFuture<SignedTransaction> future=c.startFlow(f);
         network.runNetwork();
         SignedTransaction ptx= future.get();

@@ -29,12 +29,10 @@ public class NewVisitRequestFlow {
         //private variables
         private Party initiator;
         private Party receiver;
-        private UniqueIdentifier idLinState;
+
 
         //public constructor
-        public NewVisitRequestFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
-
-            this.idLinState = idLinState;
+        public NewVisitRequestFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 

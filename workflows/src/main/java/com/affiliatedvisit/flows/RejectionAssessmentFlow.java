@@ -28,11 +28,9 @@ public class RejectionAssessmentFlow {
     //private variables
     private Party initiator ;
     private Party receiver;
-    private UniqueIdentifier idLinState;
     //public constructor
-    public RejectionAssessmentFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
+    public RejectionAssessmentFlowInitiator(Party receiver) {
 
-        this.idLinState = idLinState;
         this.receiver = receiver;
     }
 

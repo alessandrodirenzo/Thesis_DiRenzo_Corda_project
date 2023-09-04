@@ -27,11 +27,9 @@ public class RequestAcceptedFlow {
         //private variables
         private Party initiator;
         private Party receiver;
-        private UniqueIdentifier idLinState;
 
         //public constructor
-        public RequestAcceptedFlowInitiator(UniqueIdentifier idLinState,Party receiver) {
-            this.idLinState = idLinState;
+        public RequestAcceptedFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 

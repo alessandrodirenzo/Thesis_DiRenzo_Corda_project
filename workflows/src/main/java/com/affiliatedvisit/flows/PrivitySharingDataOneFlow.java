@@ -37,10 +37,8 @@ public class PrivitySharingDataOneFlow {
     public static class PrivitySharingDataOneFlowInitiator extends FlowLogic<SignedTransaction> {
         private Party initiator;
         private List<Party> receivers;
-        private UniqueIdentifier idLinState;
 
-        public PrivitySharingDataOneFlowInitiator(UniqueIdentifier idLinState, List<Party> receivers) {
-            this.idLinState = idLinState;
+        public PrivitySharingDataOneFlowInitiator( List<Party> receivers) {
             this.receivers = receivers;
         }
 

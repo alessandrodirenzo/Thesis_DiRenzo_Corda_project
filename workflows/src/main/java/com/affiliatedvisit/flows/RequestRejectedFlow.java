@@ -30,12 +30,11 @@ public class RequestRejectedFlow {
         //private variables
         private Party initiator ;
         private Party receiver;
-        private UniqueIdentifier idLinState;
+
 
         //public constructor
-        public RequestRejectedFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
+        public RequestRejectedFlowInitiator(Party receiver) {
 
-            this.idLinState = idLinState;
             this.receiver = receiver;
         }
 

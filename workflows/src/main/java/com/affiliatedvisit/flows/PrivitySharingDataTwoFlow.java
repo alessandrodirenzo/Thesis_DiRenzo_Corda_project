@@ -32,10 +32,8 @@ public class PrivitySharingDataTwoFlow {
     public static class PrivitySharingDataTwoFlowInitiator extends FlowLogic<SignedTransaction> {
         private Party initiator ;
         private Party receiver;
-        private UniqueIdentifier idLinState;
 
-        public PrivitySharingDataTwoFlowInitiator(UniqueIdentifier idLinState, Party receiver) {
-            this.idLinState = idLinState;
+        public PrivitySharingDataTwoFlowInitiator(Party receiver) {
             this.receiver = receiver;
         }
 
