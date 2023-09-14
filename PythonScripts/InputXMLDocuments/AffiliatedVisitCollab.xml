@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<collaborationdiagram name="AffiliatedVisit">
+    <messageflows>
+        <messageflow name = "New Request of Affiliated Visit" content = "Personal data">
+            <sender> 1 </sender>
+            <receiver> 2 </receiver>
+        </messageflow>
+        <messageflow name = "Request accepted" content = "Confirmation">
+            <sender> 2 </sender>
+            <receiver> 1 </receiver>
+        </messageflow>
+        <messageflow name = "Request rejected" content = "Refusal">
+            <sender> 2 </sender>
+            <receiver> 1 </receiver>
+        </messageflow>
+        <messageflow name = "New visit request" content = "Recap Employee data">
+            <sender> 2 </sender>
+            <receiver> 3 </receiver>
+        </messageflow>
+        <messageflow name = "Recap convention with available dates for booking" content = "Recap convention">
+            <sender> 2 </sender>
+            <receiver> 1 </receiver>
+        </messageflow>
+    </messageflows>
+    <participants>
+        <participant id="1"> Company Employee </participant>
+        <participant id="2"> Health Care Fund </participant>
+        <participant id="3"> Medical Office </participant>
+    </participants>
+</collaborationdiagram>

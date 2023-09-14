@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name="HospitalTelevisitExternal">
+    <choreographytasks>
+        <choreographytask name="Set appointment">
+            <message>Appointment date</message>
+            <initiator>3</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Ask for consent">
+            <message>Consent request</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+        </choreographytask>
+        <choreographytask name="Allow consent">
+            <message>Authorized consent</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Ask for teleconsultation">
+            <message>Need for consultation</message>
+            <initiator>2</initiator>
+            <receivers>4</receivers>
+        </choreographytask>
+        <choreographytask name="Send availability">
+            <message>Available spot</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+        </choreographytask>
+        <choreographytask name="Send clinical data">
+            <message>Clinical data</message>
+            <initiator>2</initiator>
+            <receivers>4</receivers>
+        </choreographytask>
+        <choreographytask name="Send final report">
+            <message>Medical report</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1">Family</participant>
+        <participant id="2">Hospital Staff</participant>
+        <participant id="3">Pediatric patient</participant>
+        <participant id="4">Specialised group</participant>
+    </participants>
+</choreographydiagram>

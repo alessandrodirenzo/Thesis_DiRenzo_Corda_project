@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<collaborationdiagram name="BirthCertificateIssue">
+    <messageflows>
+        <messageflow name = "Request of new birth certificate" content = "Request">
+            <sender> 1 </sender>
+            <receiver> 2 </receiver>
+        </messageflow>
+        <messageflow name = "Birth certificate registered" content = "Notification">
+            <sender> 2 </sender>
+            <receiver> 1 </receiver>
+        </messageflow>
+    </messageflows>
+    <participants>
+        <participant id="1"> Citizen </participant>
+        <participant id="2"> Citizen birth certificate issue </participant>
+    </participants>
+</collaborationdiagram>
