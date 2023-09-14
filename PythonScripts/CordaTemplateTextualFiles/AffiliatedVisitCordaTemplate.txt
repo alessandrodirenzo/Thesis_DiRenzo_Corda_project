@@ -110,7 +110,7 @@ PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputSta
 PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = AffiliatedVisit
 State.sharingDataPrivity2 = false
 -----------------------------
-Sequential dependences of tasks: 
+Sequential dependencies of tasks: 
 
 NewRequestofAffiliatedVisitFlow->PrivitySharingDataFlow
 PrivitySharingDataFlow->Compliant?
