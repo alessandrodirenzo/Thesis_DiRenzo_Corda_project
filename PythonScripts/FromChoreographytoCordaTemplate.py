@@ -1,7 +1,8 @@
 import xml.etree.ElementTree as ET
 import numpy as np
 
-FileName = "BirthCertificateIssue/BirthCertificateIssueChorDiagram.xml"
+
+FileName = "XMLDocuments/FromChorToCorda/BirthCertificateIssueChorDiagram.xml"
 
 mytree = ET.parse(FileName)
 myroot = mytree.getroot()
@@ -12,7 +13,7 @@ cordadocuments = myroot.get("name") + "CordaTemplate" + ".txt"
 def statecontractpair(root):
     state = "State: " + root.get("name")
     contract = "Contract: " + root.get("name") + "Contract"
-    with open(cordadocuments, 'w') as f:
+    with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'w') as f:
         f.write(state + "\n")
         f.write(contract + "\n")
         f.write("---------------------------" + "\n")
@@ -27,7 +28,7 @@ def exclgatewayrepresentation(root):
         attribute_pos = "State.accepted_" + str(i) + "= false"
         attribute_neg = "State.rejected_" + str(i) + "= false"
         i = i + 1
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write(attribute_pos + "\n")
             f.write(attribute_neg + "\n")
 
@@ -38,9 +39,9 @@ exclgatewayrepresentation(myroot)
 def addingnodes(root):
     for x in root.iter("participant"):
         participant = "Node " + x.attrib["id"] + ": " + x.text
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write(participant + "\n")
-    with open(cordadocuments, 'a') as f:
+    with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
         f.write("Default node: Notary" + "\n")
         f.write("-------------------------------" + "\n")
 
@@ -63,46 +64,46 @@ def workflowscommands(root):
         workflows_name = workflows_name.replace("_", "")
         workflows_init = workflows_name + "Initiator"
         workflows_resp = workflows_name + "Responder"
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write("Workflow: " + workflows_name + " .transaction_OutputState = ")
             f.write(workflows_init + " | ")
             f.write(workflows_resp + "\n")
         workflow_outputstate_initiator = workflows_init + "_outputState.initiator = " + x.find("initiator").text
         workflow_outputstate_receiver = workflows_init + "_outputState.receivers = " + x.find("receivers").text
         workflow_transaction_outputstate = workflows_init + ".transaction_outputState = OutputState"
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write(workflow_outputstate_initiator + "\n")
             f.write(workflow_outputstate_receiver + "\n")
         if x.find("incoming") != None:
             wf_transaction = workflows_init + ".transaction_hasIntputState"
-            with open(cordadocuments, 'a') as f:
+            with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
                 f.write(wf_transaction + "\n")
         else:
             wf_transaction = workflows_init + ".transaction_hasNoIntputState"
-            with open(cordadocuments, 'a') as f:
+            with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
                 f.write(wf_transaction + "\n")
         if "PrivitySharingData" in workflows_name:
-            with open(cordadocuments, 'a') as f:
+            with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
                 f.write(workflows_init + ".transaction_Attachment = "+ x.find("message").text + "\n")
         else:
-            with open(cordadocuments, 'a') as f:
+            with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
                 f.write(workflows_init + ".transaction_outputState.message = "+ x.find("message").text + "\n")
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write(workflow_transaction_outputstate + "\n" + "\n")
         command = workflows_name.replace("Flow", "")
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write("Contract.Command: " + command + "\n")
             f.write(command + " rule:" + wf_transaction + "\n")
             f.write(command + " rule:" + workflows_init + ".transaction_outputStateType = " +  root.get("name") + "\n")
         if "Assessment" in workflows_name and sent == False:
             sent = True
-            with open(cordadocuments, 'a') as f:
+            with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
                 f.write("State.validators_of_second_category = false" + "\n")
         elif "PrivitySharingData" in workflows_name:
             count = count + 1
-            with open(cordadocuments, 'a') as f:
+            with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
                 f.write("State.sharingDataPrivity" + str(count) + " = false" + "\n")
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write("-----------------------------" + "\n")
 
 
@@ -147,7 +148,7 @@ for x in myroot.iter("exclusivegateway"):
 array3 = np.delete(array3, (0), axis=0)
 
 def seqorder(array):
-    with open(cordadocuments, 'a') as f:
+    with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
         f.write("Sequential dependences of tasks: " + "\n" + "\n")
     for i in range(0,np.size(array3, axis=0)):
         workflow = array[i][0]
@@ -159,7 +160,7 @@ def seqorder(array):
                 if seqflow == seqpos:
                     workflow = workflow + array[j][0]
                     break
-        with open(cordadocuments, 'a') as f:
+        with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
             f.write(workflow + "\n")
 
 seqorder(array3)

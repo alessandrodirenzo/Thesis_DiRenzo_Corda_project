@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-FileName = "HospitalTelevisitExternalCollab.xml"
+FileName = "XMLDocuments/FromCollToChor/Input/BirthCertificateIssueCollab.xml"
 
 mytree = ET.parse(FileName)
 myroot = mytree.getroot()
@@ -22,7 +22,7 @@ for x in myroot.iter('messageflow'):
 root.append(root1)
 
 
-with open(contract, "w") as files:
+with open(f"XMLDocuments/FromCollToChor/Output/{contract}", "w") as files:
     files.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>")
 
 

@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-FileName = "./HospitalTelevisitExternalwithSecNot.xml"
+FileName = "XMLDocuments/AdditionalTasksGenerator/Input/BirthCertificateIssuewithSecNot.xml"
 
 mytree = ET.parse(FileName)
 myroot = mytree.getroot()
@@ -52,7 +52,7 @@ for x in myroot.findall("./choreographytasks/exclusiveGateway/enforceability_of_
 
 root.append(root1)
 
-with open(contract, "w") as files:
+with open(f"XMLDocuments/AdditionalTasksGenerator/Output/{contract}", "w") as files:
     files.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>")
 
 root2 = ET.Element("participants")
@@ -64,5 +64,5 @@ for x in myroot.iter('participant'):
 root.append(root2)
 
 tree = ET.ElementTree(root)
-with open(contract, "ab") as files:
+with open(f"XMLDocuments/AdditionalTasksGenerator/Output/{contract}", "ab") as files:
     tree.write(files)

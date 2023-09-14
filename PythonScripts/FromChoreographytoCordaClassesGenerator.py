@@ -4,7 +4,7 @@ import re
 
 from numpy.core.defchararray import lower
 
-FileName = "AffiliatedVisit/AffiliatedVisitChorDiagram.xml"
+FileName = "XMLDocuments/FromChorToCorda/BirthCertificateIssueChorDiagram.xml"
 
 mytree = ET.parse(FileName)
 myroot = mytree.getroot()
