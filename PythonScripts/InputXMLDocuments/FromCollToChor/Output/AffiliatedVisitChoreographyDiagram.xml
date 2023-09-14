@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name="AffiliatedVisit">
+    <choreographytasks>
+        <choreographytask name="New Request of Affiliated Visit">
+            <message>Personal data</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Request accepted">
+            <message>Confirmation</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+        </choreographytask>
+        <choreographytask name="Request rejected">
+            <message>Refusal</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+        </choreographytask>
+        <choreographytask name="New visit request">
+            <message>Recap Employee data</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+        </choreographytask>
+        <choreographytask name="Recap convention with available dates for booking">
+            <message>Recap convention</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1">Company Employee</participant>
+        <participant id="2">Health Care Fund</participant>
+        <participant id="3">Medical Office</participant>
+    </participants>
+</choreographydiagram>

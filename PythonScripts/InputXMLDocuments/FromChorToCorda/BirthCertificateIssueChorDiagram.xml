@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name = "BirthCertificateIssue">
+    <choreographytasks>
+        <choreographytask name="Request of new birth certificate" seq="task_1">
+            <message>Request</message>
+            <initiator> 1 </initiator>
+            <receivers> 2 </receivers>
+            <outgoing> task_2 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_2">
+            <message>Id document</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+            <incoming> task_1 </incoming>
+            <outgoing> task_3 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_3">
+            <message>Application form</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+            <incoming> task_2 </incoming>
+            <outgoing> task_4 </outgoing>
+        </choreographytask>
+        <choreographytask name="Birth certificate registered" seq="task_4">
+            <message>Notification</message>
+            <initiator> 2 </initiator>
+            <receivers> 1 </receivers>
+            <incoming> task_3 </incoming>
+            <outgoing> task_5</outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_5">
+            <message>Birth certificate</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+            <incoming> task_4 </incoming>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1"> Citizen </participant>
+        <participant id="2"> Citizen birth certificate issue </participant>
+    </participants>
+</choreographydiagram>

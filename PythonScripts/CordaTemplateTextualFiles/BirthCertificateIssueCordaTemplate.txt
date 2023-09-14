@@ -1,0 +1,72 @@
+State: BirthCertificateIssue
+Contract: BirthCertificateIssueContract
+---------------------------
+Node 1:  Citizen 
+Node 2:  Citizen birth certificate issue 
+Default node: Notary
+-------------------------------
+Workflow: RequestofnewbirthcertificateFlow .transaction_OutputState = RequestofnewbirthcertificateFlowInitiator | RequestofnewbirthcertificateFlowResponder
+RequestofnewbirthcertificateFlowInitiator_outputState.initiator =  1 
+RequestofnewbirthcertificateFlowInitiator_outputState.receivers =  2 
+RequestofnewbirthcertificateFlowInitiator.transaction_hasNoIntputState
+RequestofnewbirthcertificateFlowInitiator.transaction_outputState.message = Request
+RequestofnewbirthcertificateFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Requestofnewbirthcertificate
+Requestofnewbirthcertificate rule:RequestofnewbirthcertificateFlowInitiator.transaction_hasNoIntputState
+Requestofnewbirthcertificate rule:RequestofnewbirthcertificateFlowInitiator.transaction_outputStateType = BirthCertificateIssue
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 1
+PrivitySharingDataFlowInitiator_outputState.receivers = 2
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Id document
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = BirthCertificateIssue
+State.sharingDataPrivity1 = false
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 1
+PrivitySharingDataFlowInitiator_outputState.receivers = 2
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Application form
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = BirthCertificateIssue
+State.sharingDataPrivity2 = false
+-----------------------------
+Workflow: BirthcertificateregisteredFlow .transaction_OutputState = BirthcertificateregisteredFlowInitiator | BirthcertificateregisteredFlowResponder
+BirthcertificateregisteredFlowInitiator_outputState.initiator =  2 
+BirthcertificateregisteredFlowInitiator_outputState.receivers =  1 
+BirthcertificateregisteredFlowInitiator.transaction_hasIntputState
+BirthcertificateregisteredFlowInitiator.transaction_outputState.message = Notification
+BirthcertificateregisteredFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Birthcertificateregistered
+Birthcertificateregistered rule:BirthcertificateregisteredFlowInitiator.transaction_hasIntputState
+Birthcertificateregistered rule:BirthcertificateregisteredFlowInitiator.transaction_outputStateType = BirthCertificateIssue
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 2
+PrivitySharingDataFlowInitiator_outputState.receivers = 1
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Birth certificate
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = BirthCertificateIssue
+State.sharingDataPrivity3 = false
+-----------------------------
+Sequential dependences of tasks: 
+
+RequestofnewbirthcertificateFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow->BirthcertificateregisteredFlow
+BirthcertificateregisteredFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow

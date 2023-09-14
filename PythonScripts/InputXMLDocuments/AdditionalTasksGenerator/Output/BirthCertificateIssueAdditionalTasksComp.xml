@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name="BirthCertificateIssue">
+    <choreographytasks>
+        <choreographytask name="Privity_SharingData">
+            <message>Id document</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData">
+            <message>Application form</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData">
+            <message>Birth certificate</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1">Citizen</participant>
+        <participant id="2">Citizen birth certificate issue</participant>
+    </participants>
+</choreographydiagram>

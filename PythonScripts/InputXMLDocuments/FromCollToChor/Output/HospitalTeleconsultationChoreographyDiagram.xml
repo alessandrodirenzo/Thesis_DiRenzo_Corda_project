@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name="HospitalTeleconsultation">
+    <choreographytasks>
+        <choreographytask name="Ask for doctor availability">
+            <message>Request of availability</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Scheduled appointment">
+            <message>Appointment</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+        </choreographytask>
+        <choreographytask name="Consent notification">
+            <message>Consent</message>
+            <initiator>3</initiator>
+            <receivers>2</receivers>
+        </choreographytask>
+        <choreographytask name="Interview patient">
+            <message>Questions</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+        </choreographytask>
+        <choreographytask name="Explain symptoms">
+            <message>Report situation</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1">Family</participant>
+        <participant id="2">Doctor</participant>
+        <participant id="3">Pediatric patient</participant>
+    </participants>
+</choreographydiagram>
