@@ -192,7 +192,7 @@ Contract.Command: Sendfinalreport
 Sendfinalreport rule:SendfinalreportFlowInitiator.transaction_hasIntputState
 Sendfinalreport rule:SendfinalreportFlowInitiator.transaction_outputStateType = HospitalTelevisitExternal
 -----------------------------
-Sequential dependences of tasks: 
+Sequential dependencies of tasks: 
 
 SetappointmentFlow->PrivitySharingDataFlow
 PrivitySharingDataFlow->Need consent for patient information?

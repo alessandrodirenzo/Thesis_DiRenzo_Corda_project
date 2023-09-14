@@ -149,7 +149,7 @@ array3 = np.delete(array3, (0), axis=0)
 
 def seqorder(array):
     with open(f"CordaTemplateTextualFiles/{cordadocuments}", 'a') as f:
-        f.write("Sequential dependences of tasks: " + "\n" + "\n")
+        f.write("Sequential dependencies of tasks: " + "\n" + "\n")
     for i in range(0,np.size(array3, axis=0)):
         workflow = array[i][0]
         if array[i][2] != "":

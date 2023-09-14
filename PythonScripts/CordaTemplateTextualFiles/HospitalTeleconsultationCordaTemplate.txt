@@ -133,7 +133,7 @@ PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputSta
 PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
 State.sharingDataPrivity3 = false
 -----------------------------
-Sequential dependences of tasks: 
+Sequential dependencies of tasks: 
 
 AskfordoctoravailabilityFlow->ScheduledappointmentFlow
 ScheduledappointmentFlow->AllownexttaskFlow
