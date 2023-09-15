@@ -57,7 +57,7 @@ This guide is related to the example of Birth Certificate Issue, but it can be r
 
 17. Move to the directory of cordapp-template-java
 
-18. In order to build nodes, execute the command: ./gradlew clean deployNodes
+18. In order to deploy nodes, execute the command: ./gradlew clean deployNodes
 
 It is better to have a number of terminal opened equal to the number of nodes, included Notary (in this case 3).
 
