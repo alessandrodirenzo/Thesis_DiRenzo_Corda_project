@@ -15,7 +15,7 @@ This guide is related to the example of Birth Certificate Issue, but it can be r
 
 **IntelliJ**
 
-5.Open cordapp-template-java > contracts > .src.main.java.com.template.states >  templateState.java 
+5. Open cordapp-template-java > contracts > .src.main.java.com.template.states >  templateState.java 
   and substitute the code starting after the line "@BelongsToContract(..)" with the code in the class BirthCertificateIssue.java at the 
   path PythonScripts/BirthCertificateIssue/BirthCertificateIssue.java
   
