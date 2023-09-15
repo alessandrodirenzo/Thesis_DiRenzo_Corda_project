@@ -9,15 +9,15 @@ It is possible to generate the file for the running example (AffiliatedVisit) an
 **From collaboration to choreography tasks**
 Possible strings to assign at "FileName" variable in the script CollaborationtoChoreographyTasksGenerator.py:
 
-  Affiliated visit: XMLDocuments/FromCollToChor/Input/AffiliatedVisitCollab.xml
+  Affiliated visit: "XMLDocuments/FromCollToChor/Input/AffiliatedVisitCollab.xml"
   
-  Birth certificate issue: XMLDocuments/FromCollToChor/Input/BirthCertificateIssueCollab.xml
+  Birth certificate issue: "XMLDocuments/FromCollToChor/Input/BirthCertificateIssueCollab.xml"
   
-  HospitalTeleconsultation: XMLDocuments/FromCollToChor/Input/HospitalTeleconsultationCollab.xml
+  HospitalTeleconsultation: "XMLDocuments/FromCollToChor/Input/HospitalTeleconsultationCollab.xml"
   
-  HospitalTelevisitExternal: XMLDocuments/FromCollToChor/Input/HospitalTelevisitExternalCollab.xml
+  HospitalTelevisitExternal: "XMLDocuments/FromCollToChor/Input/HospitalTelevisitExternalCollab.xml"
 
-1. Assign one of the strings
+1. Assign one of the strings to the variable.
 
 2. Run the script CollaborationtoChoreographyTasksGenerator.py. The output will be generated in 
    XMLDocuments/FromCollToChor/Output/<NameOfExample>ChoreographyDiagram.xml
@@ -34,13 +34,13 @@ Possible strings to assign at "FileName" variable in the script CollaborationtoC
 
 Possible strings to assign at "FileName" variable in the script AdditionalChoreographyTasksGenerator.py:
 
-  Affiliated visit: XMLDocuments/AdditionalTasksGenerator/Input/AffiliatedVisitwithSecNot.xml
+  Affiliated visit: "XMLDocuments/AdditionalTasksGenerator/Input/AffiliatedVisitwithSecNot.xml"
   
-  Birth certificate issue: XMLDocuments/AdditionalTasksGenerator/Input/BirthCertificateIssuewithSecNot.xml
+  Birth certificate issue: "XMLDocuments/AdditionalTasksGenerator/Input/BirthCertificateIssuewithSecNot.xml"
   
-  HospitalTeleconsultation: XMLDocuments/AdditionalTasksGenerator/Input/HospitalTelecosultationwithSecNot.xml
+  HospitalTeleconsultation: "XMLDocuments/AdditionalTasksGenerator/Input/HospitalTelecosultationwithSecNot.xml"
   
-  HospitalTelevisitExternal: XMLDocuments/AdditionalTasksGenerator/Input/HospitalTelevisitExternalwithSecNot.xml
+  HospitalTelevisitExternal: "XMLDocuments/AdditionalTasksGenerator/Input/HospitalTelevisitExternalwithSecNot.xml"
 
 1. Assign one of the strings
 
@@ -59,13 +59,13 @@ Possible strings to assign at "FileName" variable in the script AdditionalChoreo
 
 Possible strings to assign at "FileName" variable in the script FromChoreographyToCordaClassesGenerator.py:
 
-  Affiliated visit: XMLDocuments/FromChorToCorda/AffiliatedVisitChorDiagram.xml
+  Affiliated visit: "XMLDocuments/FromChorToCorda/AffiliatedVisitChorDiagram.xml"
   
-  Birth certificate issue: XMLDocuments/FromChorToCorda/BirthCertificateIssueChorDiagram.xml
+  Birth certificate issue: "XMLDocuments/FromChorToCorda/BirthCertificateIssueChorDiagram.xml"
   
-  HospitalTeleconsultation: XMLDocuments/FromChorToCorda/HospitalTeleconsultationChorDiagram.xml
+  HospitalTeleconsultation: "XMLDocuments/FromChorToCorda/HospitalTeleconsultationChorDiagram.xml"
   
-  HospitalTelevisitExternal: XMLDocuments/FromChorToCorda/HospitalTelevisitExternalChorDiagram.xml
+  HospitalTelevisitExternal: "XMLDocuments/FromChorToCorda/HospitalTelevisitExternalChorDiagram.xml"
 
 1. Assign one of the strings
  
@@ -86,13 +86,13 @@ Possible strings to assign at "FileName" variable in the script FromChoreography
 
 Possible strings to assign at "FileName" variable in the script FromChoreographyToCordaClassesGenerator.py:
 
-  Affiliated visit: XMLDocuments/FromChorToCorda/AffiliatedVisitChorDiagram.xml
+  Affiliated visit: "XMLDocuments/FromChorToCorda/AffiliatedVisitChorDiagram.xml"
   
-  Birth certificate issue: XMLDocuments/FromChorToCorda/BirthCertificateIssueChorDiagram.xml
+  Birth certificate issue: "XMLDocuments/FromChorToCorda/BirthCertificateIssueChorDiagram.xml"
   
-  HospitalTeleconsultation: XMLDocuments/FromChorToCorda/HospitalTeleconsultationChorDiagram.xml
+  HospitalTeleconsultation: "XMLDocuments/FromChorToCorda/HospitalTeleconsultationChorDiagram.xml"
   
-  HospitalTelevisitExternal: XMLDocuments/FromChorToCorda/HospitalTelevisitExternalChorDiagram.xml
+  HospitalTelevisitExternal: "XMLDocuments/FromChorToCorda/HospitalTelevisitExternalChorDiagram.xml"
 
 1. Assign one of the strings
 
