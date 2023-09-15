@@ -8,7 +8,7 @@ node {
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
     node {
-        name "O= Citizen birth certificate issue ,L=Milan,C=IT"
+        name "O= Citizen registry birth certificate ,L=Milan,C=IT"
         p2pPort 10005
         rpcSettings {
             address("localhost:10006")
