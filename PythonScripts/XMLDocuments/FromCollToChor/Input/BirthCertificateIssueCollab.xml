@@ -12,6 +12,6 @@
     </messageflows>
     <participants>
         <participant id="1"> Citizen </participant>
-        <participant id="2"> Citizen birth certificate issue </participant>
+        <participant id="2"> Citizen registry birth certificate </participant>
     </participants>
 </collaborationdiagram>
