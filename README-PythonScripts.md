@@ -7,15 +7,42 @@ Step 1:
 **From collaboration to choreography tasks**
 
 Affiliated visit:
+
 Birth certificate issue:
+
 HospitalTeleconsultation:
+
 HospitalTelevisitExternal:
 
 Step 2:
 **Generation of additional tasks from choreography diagram enriched with security notations**
 
+Affiliated visit:
+
+Birth certificate issue:
+
+HospitalTeleconsultation:
+
+HospitalTelevisitExternal:
+
 Step 3:
 **From choreography diagram to Corda Java classes**
 
+Affiliated visit:
+
+Birth certificate issue:
+
+HospitalTeleconsultation:
+
+HospitalTelevisitExternal:
+
 Additional step:
 **Generation of textual Corda template**
+
+Affiliated visit:
+
+Birth certificate issue:
+
+HospitalTeleconsultation:
+
+HospitalTelevisitExternal:
