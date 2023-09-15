@@ -75,7 +75,7 @@ Terminal 2:
 
 Terminal 3: 
 
-23. In order to run node, move to the folder of the node: cd build/nodes/Citizen Registry Birth Certificate
+23. In order to run node, move to the folder of the node: cd build/nodes/Citizen registry birth certificate
 
 24. Launch the following command: java -jar corda.jar
 
@@ -89,14 +89,14 @@ Example: p2pPort 10005 -> p2pPort 10007
 On terminal 1:
 **In order to execute a transaction**
 
- 25: flow start RequestofnewbirthcertificateFlow$RequestofnewbirthcertificateFlowInitiator receivers: "O= Citizen Registry Birth Certificate,L=Milan,C=IT"
+ 25: flow start RequestofnewbirthcertificateFlow$RequestofnewbirthcertificateFlowInitiator receivers: "O= Citizen registry birth certificate,L=Milan,C=IT"
 
 **In order to check the transaction correctly stored for Citizen**
 
  26: run vaultQuery contractStateType: com.template.states.BirthCertificateIssue
 
 On terminal 3:
-**In order to check the transaction correctly stored for Citizen Registry Birth Certificate**
+**In order to check the transaction correctly stored for Citizen registry birth certificate**
 
  27: run vaultQuery contractStateType: com.template.states.BirthCertificateIssue
 
@@ -115,11 +115,11 @@ On terminal 3:
 31. Redploy nodes
 
 32. In the Citizen node, run the following commands:
-    flow start RequestofnewbirthcertificateFlow$RequestofnewbirthcertificateFlowInitiator receivers: "O= Citizen Registry Birth 
-    Certificate,L=Milan,C=IT"
+    flow start RequestofnewbirthcertificateFlow$RequestofnewbirthcertificateFlowInitiator receivers: "O= Citizen registry birth 
+    certificate,L=Milan,C=IT"
 
-    flow start PrivitySharingDataFlow1$PrivitySharingDataFlow1Initiator receivers: "O= Citizen Registry Birth 
-    Certificate,L=Milan,C=IT"
+    flow start PrivitySharingDataFlow1$PrivitySharingDataFlow1Initiator receivers: "O= Citizen registry birth 
+    certificate,L=Milan,C=IT"
 
 33. Run on both the nodes: run vaultQuery contractStateType: com.template.states.BirthCertificateIssue
     There are both transactions in the vault, with the attachment present in the second one.
