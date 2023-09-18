@@ -7,6 +7,7 @@ It is possible to generate the file for the running example (AffiliatedVisit) an
 **Step 1:**
 
 **From collaboration to choreography tasks**
+
 Possible strings to assign at "FileName" variable in the script CollaborationtoChoreographyTasksGenerator.py:
 
   Affiliated visit: "XMLDocuments/FromCollToChor/Input/AffiliatedVisitCollab.xml"
