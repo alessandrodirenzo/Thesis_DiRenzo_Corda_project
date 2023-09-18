@@ -1,11 +1,11 @@
 # Thesis_DiRenzo_Corda_project
 The folders of this repository are organized in the following way:
 
-AffiliatedVisit/AffiliatedVisitCordaProject contains a fully deployable CorDapp related to the running example "Affiliated visit" presented in the thesis.
+[AffiliatedVisit](https://github.com/alessandrodirenzo/Thesis_DiRenzo_Corda_project/tree/main/AffiliatedVisit/AffiliatedVisitCordaProject) contains a fully deployable CorDapp related to the running example "Affiliated visit" presented in the thesis.
 
-Diagram images/ is composed of the graphical collaboration and choreography diagrams related to the running example and the sample tests.
+[Diagram images](https://github.com/alessandrodirenzo/Thesis_DiRenzo_Corda_project/tree/main/Diagrams%20images) is composed of the graphical collaboration and choreography diagrams related to the running example and the sample tests.
 
-PythonScripts/ comprises all the scripts implemented that automatize parts of the method, alongside XML documents as input and output of the scripts and Java classes generated automatically.
+[PythonScripts](https://github.com/alessandrodirenzo/Thesis_DiRenzo_Corda_project/tree/main/PythonScripts) comprises all the scripts implemented that automatize parts of the method, alongside XML documents as input and output of the scripts and Java classes generated automatically.
 
 In order to run the scripts and reproduce the results obtained, the guide to follow is described in document [Python Scripts](https://github.com/alessandrodirenzo/Thesis_DiRenzo_Corda_project/blob/master/README-PythonScripts.md).
 
