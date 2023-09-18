@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name = "HospitalTeleconsultation">
+    <choreorgaphytasks>
+        <choreographytask name="Ask for doctor availability" seq = "task_1">
+            <message>Request of availability</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+            <outgoing> task_2 </outgoing>
+        </choreographytask>
+        <choreographytask name="Scheduled appointment" seq = "task_2">
+            <message>Appointment</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+            <incoming> task_1 </incoming>
+            <outgoing> task_3 </outgoing>
+        </choreographytask>
+        <choreographytask name="Allow next task" seq = "task_3">
+            <message> Introduction to diagram </message>
+            <initiator> 2 </initiator>
+            <receivers> 3 </receivers>
+            <incoming> task_2 </incoming>
+            <outgoing> task_4 </outgoing>
+        </choreographytask>
+        <choreographytask name="Consent notification" seq = "task_4">
+            <message>Consent</message>
+            <initiator>3</initiator>
+            <receivers>2</receivers>
+            <incoming> task_3 </incoming>
+            <outgoing> task_5 </outgoing>
+        </choreographytask>
+         <choreographytask name="Privity_SharingData" seq = "task_5">
+            <message>Consent form signed</message>
+            <initiator>3</initiator>
+            <receivers>1,2</receivers>
+            <incoming> task_4 </incoming>
+            <outgoing> gateway_1 </outgoing>
+        </choreographytask>
+        <exclusivegateway name="Consent ok?" seq="gateway_1">
+            <incoming> task_4 </incoming>
+            <outgoing> task_6,task_7 </outgoing>
+        </exclusivegateway>
+        <choreographytask name="Rejection_Assessment" seq = "task_6">
+            <message>Refusal</message>
+            <initiator>2</initiator>
+            <receivers>1,3</receivers>
+            <incoming> gateway_1 </incoming>
+        </choreographytask>
+        <choreographytask name="Acceptance_Assessment" seq = "task_7">
+            <message>Acceptation</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+            <incoming> gateway_1 </incoming>
+            <outgoing> task_8 </outgoing>
+        </choreographytask>
+        <choreographytask name="Interview patient" seq = "task_8">
+            <message>Questions</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+            <incoming> task_7 </incoming>
+            <outgoing> task_9 </outgoing>
+        </choreographytask>
+        <choreographytask name="Explain symptoms" seq = "task_9">
+            <message>Report situation</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+            <incoming> task_8 </incoming>
+            <outgoing> task_10 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq = "task_10">
+            <message>Patient health record</message>
+            <initiator>2</initiator>
+            <receivers>1,3</receivers>
+            <incoming> task_9 </incoming>
+            <outgoing> task_11 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq = "task_11">
+            <message>Final report</message>
+            <initiator>2</initiator>
+            <receivers>1,3</receivers>
+            <incoming> task_10 </incoming>
+        </choreographytask>
+    </choreorgaphytasks>
+    <participants>
+        <participant id="1">Family</participant>
+        <participant id="2">Doctor</participant>
+        <participant id="3">Pediatric patient</participant>
+    </participants>
+</choreographydiagram>

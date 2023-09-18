@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<collaborationdiagram name="HospitalTeleconsultation">
+    <messageflows>
+        <messageflow name = "Ask for doctor availability" content = "Request of availability">
+            <sender> 1 </sender>
+            <receiver> 2 </receiver>
+        </messageflow>
+        <messageflow name = "Scheduled appointment" content = "Appointment">
+            <sender> 2 </sender>
+            <receiver> 1 </receiver>
+        </messageflow>
+        <messageflow name = "Consent notification" content = "Consent">
+            <sender> 3 </sender>
+            <receiver> 2 </receiver>
+        </messageflow>
+        <messageflow name = "Interview patient" content = "Questions">
+            <sender> 2 </sender>
+            <receiver> 3 </receiver>
+        </messageflow>
+        <messageflow name = "Explain symptoms" content = "Report situation">
+            <sender> 2 </sender>
+            <receiver> 3 </receiver>
+        </messageflow>
+    </messageflows>
+    <participants>
+        <participant id="1"> Family </participant>
+        <participant id="2"> Doctor </participant>
+        <participant id="3"> Pediatric patient </participant>
+    </participants>
+</collaborationdiagram>

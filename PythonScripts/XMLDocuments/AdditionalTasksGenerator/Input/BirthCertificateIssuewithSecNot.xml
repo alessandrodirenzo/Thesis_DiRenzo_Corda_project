@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name="BirthCertificateIssue">
+    <choreographytasks>
+        <choreographytask name="Request of new birth certificate">
+            <message> Request </message>
+            <dataobject privity_level="static" owner="1" others="2">Id document</dataobject>
+            <dataobject privity_level="static" owner="1" others="2">Application form</dataobject>
+            <initiator> 1 </initiator>
+            <receivers> 2 </receivers>
+        </choreographytask>
+        <choreographytask name="Birth certificate registered">
+            <message> Notification </message>
+            <dataobject privity_level="private" owner="2" others="1" >Birth certificate</dataobject>
+            <initiator> 2 </initiator>
+            <receivers> 1 </receivers>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1"> Citizen </participant>
+        <participant id="2"> Citizen registry birth certificate </participant>
+    </participants>
+</choreographydiagram>

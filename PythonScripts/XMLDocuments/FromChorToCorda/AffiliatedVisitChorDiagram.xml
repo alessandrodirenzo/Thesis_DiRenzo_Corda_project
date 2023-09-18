@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name = "AffiliatedVisit">
+<choreographytasks>
+    <choreographytask name="New Request of Affiliated Visit" seq="task_1">
+        <message>Personal data</message>
+        <initiator>1</initiator>
+        <receivers>2</receivers>
+        <outgoing> task_2 </outgoing>
+    </choreographytask>
+    <choreographytask name="Privity_SharingData" seq="task_2">
+        <message>Pathology documentation</message>
+        <initiator>1</initiator>
+        <receivers>2,3</receivers>
+        <incoming> task_1 </incoming>
+        <outgoing> gateway_1 </outgoing>
+    </choreographytask>
+    <exclusivegateway name="Compliant?" seq="gateway_1">
+        <incoming> task_2 </incoming>
+        <outgoing> task_3,task_5 </outgoing>
+    </exclusivegateway>
+    <choreographytask name="Acceptance_Assessment" seq="task_5">
+        <message>Acceptation</message>
+        <initiator>2</initiator>
+        <receivers>3</receivers>
+        <incoming> gateway_1 </incoming>
+        <outgoing> task_6 </outgoing>
+    </choreographytask>
+    <choreographytask name="Request accepted" seq="task_6">
+        <message>Confirmation</message>
+        <initiator>2</initiator>
+        <receivers>1</receivers>
+        <incoming> task_5 </incoming>
+        <outgoing> task_7 </outgoing>
+    </choreographytask>
+    <choreographytask name="Rejection_Assessment" seq="task_3">
+        <message>Refusal</message>
+        <initiator>2</initiator>
+        <receivers>3</receivers>
+        <incoming> gateway_1 </incoming>
+        <outgoing> task_4 </outgoing>
+    </choreographytask>
+    <choreographytask name="Request rejected" seq="task_4">
+        <message>Refusal</message>
+        <initiator>2</initiator>
+        <receivers>1</receivers>
+        <incoming> task_3 </incoming>
+    </choreographytask>
+    <choreographytask name="New visit request" seq="task_7">
+        <message>Recap Employee data</message>
+        <initiator>2</initiator>
+        <receivers>3</receivers>
+        <incoming> task_6 </incoming>
+        <outgoing> task_8 </outgoing>
+    </choreographytask>
+    <choreographytask name="Recap convention with available dates for booking" seq="task_8">
+        <message>Recap convention</message>
+        <initiator>2</initiator>
+        <receivers>1</receivers>
+        <incoming> task_7 </incoming>
+        <outgoing> task_9 </outgoing>
+    </choreographytask>
+    <choreographytask name="Privity_SharingData" seq="task_9">
+        <message>Available dates</message>
+        <initiator>2</initiator>
+        <receivers>1</receivers>
+        <incoming> task_8 </incoming>
+    </choreographytask>
+</choreographytasks>
+    <participants>
+        <participant id="1"> Company Employee </participant>
+        <participant id="2"> Health Care Fund </participant>
+        <participant id="3"> Medical Office </participant>
+    </participants>
+</choreographydiagram>

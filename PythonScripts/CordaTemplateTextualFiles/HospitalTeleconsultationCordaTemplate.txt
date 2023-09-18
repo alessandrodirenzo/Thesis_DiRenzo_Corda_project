@@ -1,0 +1,150 @@
+State: HospitalTeleconsultation
+Contract: HospitalTeleconsultationContract
+---------------------------
+State.accepted_1= false
+State.rejected_1= false
+Node 1: Family
+Node 2: Doctor
+Node 3: Pediatric patient
+Default node: Notary
+-------------------------------
+Workflow: AskfordoctoravailabilityFlow .transaction_OutputState = AskfordoctoravailabilityFlowInitiator | AskfordoctoravailabilityFlowResponder
+AskfordoctoravailabilityFlowInitiator_outputState.initiator = 1
+AskfordoctoravailabilityFlowInitiator_outputState.receivers = 2
+AskfordoctoravailabilityFlowInitiator.transaction_hasNoIntputState
+AskfordoctoravailabilityFlowInitiator.transaction_outputState.message = Request of availability
+AskfordoctoravailabilityFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Askfordoctoravailability
+Askfordoctoravailability rule:AskfordoctoravailabilityFlowInitiator.transaction_hasNoIntputState
+Askfordoctoravailability rule:AskfordoctoravailabilityFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: ScheduledappointmentFlow .transaction_OutputState = ScheduledappointmentFlowInitiator | ScheduledappointmentFlowResponder
+ScheduledappointmentFlowInitiator_outputState.initiator = 2
+ScheduledappointmentFlowInitiator_outputState.receivers = 1
+ScheduledappointmentFlowInitiator.transaction_hasIntputState
+ScheduledappointmentFlowInitiator.transaction_outputState.message = Appointment
+ScheduledappointmentFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Scheduledappointment
+Scheduledappointment rule:ScheduledappointmentFlowInitiator.transaction_hasIntputState
+Scheduledappointment rule:ScheduledappointmentFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: AllownexttaskFlow .transaction_OutputState = AllownexttaskFlowInitiator | AllownexttaskFlowResponder
+AllownexttaskFlowInitiator_outputState.initiator =  2 
+AllownexttaskFlowInitiator_outputState.receivers =  3 
+AllownexttaskFlowInitiator.transaction_hasIntputState
+AllownexttaskFlowInitiator.transaction_outputState.message =  Introduction to diagram 
+AllownexttaskFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Allownexttask
+Allownexttask rule:AllownexttaskFlowInitiator.transaction_hasIntputState
+Allownexttask rule:AllownexttaskFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: ConsentnotificationFlow .transaction_OutputState = ConsentnotificationFlowInitiator | ConsentnotificationFlowResponder
+ConsentnotificationFlowInitiator_outputState.initiator = 3
+ConsentnotificationFlowInitiator_outputState.receivers = 2
+ConsentnotificationFlowInitiator.transaction_hasIntputState
+ConsentnotificationFlowInitiator.transaction_outputState.message = Consent
+ConsentnotificationFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Consentnotification
+Consentnotification rule:ConsentnotificationFlowInitiator.transaction_hasIntputState
+Consentnotification rule:ConsentnotificationFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 3
+PrivitySharingDataFlowInitiator_outputState.receivers = 1,2
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Consent form signed
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+State.sharingDataPrivity1 = false
+-----------------------------
+Workflow: RejectionAssessmentFlow .transaction_OutputState = RejectionAssessmentFlowInitiator | RejectionAssessmentFlowResponder
+RejectionAssessmentFlowInitiator_outputState.initiator = 2
+RejectionAssessmentFlowInitiator_outputState.receivers = 1,3
+RejectionAssessmentFlowInitiator.transaction_hasIntputState
+RejectionAssessmentFlowInitiator.transaction_outputState.message = Refusal
+RejectionAssessmentFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: RejectionAssessment
+RejectionAssessment rule:RejectionAssessmentFlowInitiator.transaction_hasIntputState
+RejectionAssessment rule:RejectionAssessmentFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+State.validators_of_second_category = false
+-----------------------------
+Workflow: AcceptanceAssessmentFlow .transaction_OutputState = AcceptanceAssessmentFlowInitiator | AcceptanceAssessmentFlowResponder
+AcceptanceAssessmentFlowInitiator_outputState.initiator = 2
+AcceptanceAssessmentFlowInitiator_outputState.receivers = 1
+AcceptanceAssessmentFlowInitiator.transaction_hasIntputState
+AcceptanceAssessmentFlowInitiator.transaction_outputState.message = Acceptation
+AcceptanceAssessmentFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: AcceptanceAssessment
+AcceptanceAssessment rule:AcceptanceAssessmentFlowInitiator.transaction_hasIntputState
+AcceptanceAssessment rule:AcceptanceAssessmentFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: InterviewpatientFlow .transaction_OutputState = InterviewpatientFlowInitiator | InterviewpatientFlowResponder
+InterviewpatientFlowInitiator_outputState.initiator = 2
+InterviewpatientFlowInitiator_outputState.receivers = 3
+InterviewpatientFlowInitiator.transaction_hasIntputState
+InterviewpatientFlowInitiator.transaction_outputState.message = Questions
+InterviewpatientFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Interviewpatient
+Interviewpatient rule:InterviewpatientFlowInitiator.transaction_hasIntputState
+Interviewpatient rule:InterviewpatientFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: ExplainsymptomsFlow .transaction_OutputState = ExplainsymptomsFlowInitiator | ExplainsymptomsFlowResponder
+ExplainsymptomsFlowInitiator_outputState.initiator = 2
+ExplainsymptomsFlowInitiator_outputState.receivers = 3
+ExplainsymptomsFlowInitiator.transaction_hasIntputState
+ExplainsymptomsFlowInitiator.transaction_outputState.message = Report situation
+ExplainsymptomsFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Explainsymptoms
+Explainsymptoms rule:ExplainsymptomsFlowInitiator.transaction_hasIntputState
+Explainsymptoms rule:ExplainsymptomsFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 2
+PrivitySharingDataFlowInitiator_outputState.receivers = 1,3
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Patient health record
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+State.sharingDataPrivity2 = false
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 2
+PrivitySharingDataFlowInitiator_outputState.receivers = 1,3
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Final report
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = HospitalTeleconsultation
+State.sharingDataPrivity3 = false
+-----------------------------
+Sequential dependencies of tasks: 
+
+AskfordoctoravailabilityFlow->ScheduledappointmentFlow
+ScheduledappointmentFlow->AllownexttaskFlow
+AllownexttaskFlow->ConsentnotificationFlow
+ConsentnotificationFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow->Consent ok?
+RejectionAssessmentFlow
+AcceptanceAssessmentFlow->InterviewpatientFlow
+InterviewpatientFlow->ExplainsymptomsFlow
+ExplainsymptomsFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow
+Consent ok?->RejectionAssessmentFlow
+Consent ok?->AcceptanceAssessmentFlow

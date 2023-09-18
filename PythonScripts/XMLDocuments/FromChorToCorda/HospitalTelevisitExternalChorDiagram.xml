@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choreographydiagram name="HospitalTelevisitExternal">
+    <choreographytasks>
+        <choreographytask name="Set appointment" seq="task_1">
+            <message>Appointment date</message>
+            <initiator>3</initiator>
+            <receivers>2</receivers>
+            <outgoing> task_2</outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_2" >
+            <message>Purpose for consent</message>
+            <initiator>2</initiator>
+            <receivers>1,3,4</receivers>
+            <incoming> task_1 </incoming>
+            <outgoing> gateway_1 </outgoing>
+        </choreographytask>
+        <exclusivegateway name="Need consent for patient information?" seq="gateway_1">
+            <incoming> task_2 </incoming>
+            <outgoing> task_3,task_4 </outgoing>
+        </exclusivegateway>
+        <choreographytask name="Rejection_Assessment" seq="task_3">
+            <message>Refusal</message>
+            <initiator>2</initiator>
+            <receivers>1,3,4</receivers>
+            <incoming> gateway_1 </incoming>
+            <outgoing> task_8 </outgoing>
+        </choreographytask>
+        <choreographytask name="Acceptance_Assessment" seq="task_4">
+            <message>Acceptation</message>
+            <initiator>2</initiator>
+            <receivers>3,4</receivers>
+            <incoming> gateway_1 </incoming>
+            <outgoing> task_5 </outgoing>
+        </choreographytask>
+        <choreographytask name="Ask for consent" seq="task_5">
+            <message>Consent request</message>
+            <initiator>2</initiator>
+            <receivers>1</receivers>
+            <incoming> task_4 </incoming>
+            <outgoing> task_6 </outgoing>
+        </choreographytask>
+        <choreographytask name="Allow consent" seq="task_6">
+            <message>Authorized consent</message>
+            <initiator>1</initiator>
+            <receivers>2</receivers>
+            <incoming> task_5 </incoming>
+            <outgoing> task_7 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_7">
+            <message>Signed consent</message>
+            <initiator>1</initiator>
+            <receivers>2,3,4</receivers>
+            <incoming> task_6 </incoming>
+            <outgoing> task_8 </outgoing>
+        </choreographytask>
+        <choreographytask name="Ask for teleconsultation" seq="task_8">
+            <message>Need for consultation</message>
+            <initiator>2</initiator>
+            <receivers>4</receivers>
+            <incoming> task_7,task_3 </incoming>
+            <outgoing> task_9 </outgoing>
+        </choreographytask>
+        <choreographytask name="Send availability" seq="task_9">
+            <message>Available spot</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+            <incoming> task_8 </incoming>
+            <outgoing> task_10 </outgoing>
+        </choreographytask>
+        <choreographytask name="Decision_SharingData" seq="task_10">
+            <message>Available spot for enforcing decision</message>
+            <initiator>4</initiator>
+            <receivers>1,2,3</receivers>
+            <incoming> task_9 </incoming>
+            <outgoing> task_11 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_11">
+            <message>Patient record</message>
+            <initiator>2</initiator>
+            <receivers>4</receivers>
+            <incoming> task_10 </incoming>
+            <outgoing> gateway_2 </outgoing>
+        </choreographytask>
+        <exclusivegateway name="Group available?" seq="gateway_2">
+            <incoming> task_11 </incoming>
+            <outgoing> task_12,task_13 </outgoing>
+        </exclusivegateway>
+        <choreographytask name="Acceptance_Assessment" seq="task_13" >
+            <message>Acceptation</message>
+            <initiator>2</initiator>
+            <receivers>1,3</receivers>
+            <incoming> gateway_2 </incoming>
+            <outgoing> task_14 </outgoing>
+        </choreographytask>
+        <choreographytask name="Rejection_Assessment" seq="task_12">
+            <message>Refusal</message>
+            <initiator>2</initiator>
+            <receivers>1,3,4</receivers>
+            <incoming> gateway_2 </incoming>
+        </choreographytask>
+        <choreographytask name="Send clinical data" seq="task_14">
+            <message>Clinical data</message>
+            <initiator>2</initiator>
+            <receivers>4</receivers>
+            <incoming> task_13 </incoming>
+            <outgoing> task_15 </outgoing>
+        </choreographytask>
+        <choreographytask name="Privity_SharingData" seq="task_15">
+            <message>Specialistic report</message>
+            <initiator>4</initiator>
+            <receivers>1,2,3</receivers>
+            <incoming> task_14 </incoming>
+            <outgoing> task_16 </outgoing>
+        </choreographytask>
+        <choreographytask name="Send final report" seq="task_16">
+            <message>Medical report</message>
+            <initiator>2</initiator>
+            <receivers>3</receivers>
+            <incoming> task_15 </incoming>
+        </choreographytask>
+    </choreographytasks>
+    <participants>
+        <participant id="1">Family</participant>
+        <participant id="2">Hospital Staff</participant>
+        <participant id="3">Pediatric patient</participant>
+        <participant id="4">Specialised group</participant>
+    </participants>
+</choreographydiagram>

@@ -1,0 +1,125 @@
+State: AffiliatedVisit
+Contract: AffiliatedVisitContract
+---------------------------
+State.accepted_1= false
+State.rejected_1= false
+Node 1:  Company Employee 
+Node 2:  Health Care Fund 
+Node 3:  Medical Office 
+Default node: Notary
+-------------------------------
+Workflow: NewRequestofAffiliatedVisitFlow .transaction_OutputState = NewRequestofAffiliatedVisitFlowInitiator | NewRequestofAffiliatedVisitFlowResponder
+NewRequestofAffiliatedVisitFlowInitiator_outputState.initiator = 1
+NewRequestofAffiliatedVisitFlowInitiator_outputState.receivers = 2
+NewRequestofAffiliatedVisitFlowInitiator.transaction_hasNoIntputState
+NewRequestofAffiliatedVisitFlowInitiator.transaction_outputState.message = Personal data
+NewRequestofAffiliatedVisitFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: NewRequestofAffiliatedVisit
+NewRequestofAffiliatedVisit rule:NewRequestofAffiliatedVisitFlowInitiator.transaction_hasNoIntputState
+NewRequestofAffiliatedVisit rule:NewRequestofAffiliatedVisitFlowInitiator.transaction_outputStateType = AffiliatedVisit
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 1
+PrivitySharingDataFlowInitiator_outputState.receivers = 2,3
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Pathology documentation
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = AffiliatedVisit
+State.sharingDataPrivity1 = false
+-----------------------------
+Workflow: AcceptanceAssessmentFlow .transaction_OutputState = AcceptanceAssessmentFlowInitiator | AcceptanceAssessmentFlowResponder
+AcceptanceAssessmentFlowInitiator_outputState.initiator = 2
+AcceptanceAssessmentFlowInitiator_outputState.receivers = 3
+AcceptanceAssessmentFlowInitiator.transaction_hasIntputState
+AcceptanceAssessmentFlowInitiator.transaction_outputState.message = Acceptation
+AcceptanceAssessmentFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: AcceptanceAssessment
+AcceptanceAssessment rule:AcceptanceAssessmentFlowInitiator.transaction_hasIntputState
+AcceptanceAssessment rule:AcceptanceAssessmentFlowInitiator.transaction_outputStateType = AffiliatedVisit
+State.validators_of_second_category = false
+-----------------------------
+Workflow: RequestacceptedFlow .transaction_OutputState = RequestacceptedFlowInitiator | RequestacceptedFlowResponder
+RequestacceptedFlowInitiator_outputState.initiator = 2
+RequestacceptedFlowInitiator_outputState.receivers = 1
+RequestacceptedFlowInitiator.transaction_hasIntputState
+RequestacceptedFlowInitiator.transaction_outputState.message = Confirmation
+RequestacceptedFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Requestaccepted
+Requestaccepted rule:RequestacceptedFlowInitiator.transaction_hasIntputState
+Requestaccepted rule:RequestacceptedFlowInitiator.transaction_outputStateType = AffiliatedVisit
+-----------------------------
+Workflow: RejectionAssessmentFlow .transaction_OutputState = RejectionAssessmentFlowInitiator | RejectionAssessmentFlowResponder
+RejectionAssessmentFlowInitiator_outputState.initiator = 2
+RejectionAssessmentFlowInitiator_outputState.receivers = 3
+RejectionAssessmentFlowInitiator.transaction_hasIntputState
+RejectionAssessmentFlowInitiator.transaction_outputState.message = Refusal
+RejectionAssessmentFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: RejectionAssessment
+RejectionAssessment rule:RejectionAssessmentFlowInitiator.transaction_hasIntputState
+RejectionAssessment rule:RejectionAssessmentFlowInitiator.transaction_outputStateType = AffiliatedVisit
+-----------------------------
+Workflow: RequestrejectedFlow .transaction_OutputState = RequestrejectedFlowInitiator | RequestrejectedFlowResponder
+RequestrejectedFlowInitiator_outputState.initiator = 2
+RequestrejectedFlowInitiator_outputState.receivers = 1
+RequestrejectedFlowInitiator.transaction_hasIntputState
+RequestrejectedFlowInitiator.transaction_outputState.message = Refusal
+RequestrejectedFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Requestrejected
+Requestrejected rule:RequestrejectedFlowInitiator.transaction_hasIntputState
+Requestrejected rule:RequestrejectedFlowInitiator.transaction_outputStateType = AffiliatedVisit
+-----------------------------
+Workflow: NewvisitrequestFlow .transaction_OutputState = NewvisitrequestFlowInitiator | NewvisitrequestFlowResponder
+NewvisitrequestFlowInitiator_outputState.initiator = 2
+NewvisitrequestFlowInitiator_outputState.receivers = 3
+NewvisitrequestFlowInitiator.transaction_hasIntputState
+NewvisitrequestFlowInitiator.transaction_outputState.message = Recap Employee data
+NewvisitrequestFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Newvisitrequest
+Newvisitrequest rule:NewvisitrequestFlowInitiator.transaction_hasIntputState
+Newvisitrequest rule:NewvisitrequestFlowInitiator.transaction_outputStateType = AffiliatedVisit
+-----------------------------
+Workflow: RecapconventionwithavailabledatesforbookingFlow .transaction_OutputState = RecapconventionwithavailabledatesforbookingFlowInitiator | RecapconventionwithavailabledatesforbookingFlowResponder
+RecapconventionwithavailabledatesforbookingFlowInitiator_outputState.initiator = 2
+RecapconventionwithavailabledatesforbookingFlowInitiator_outputState.receivers = 1
+RecapconventionwithavailabledatesforbookingFlowInitiator.transaction_hasIntputState
+RecapconventionwithavailabledatesforbookingFlowInitiator.transaction_outputState.message = Recap convention
+RecapconventionwithavailabledatesforbookingFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: Recapconventionwithavailabledatesforbooking
+Recapconventionwithavailabledatesforbooking rule:RecapconventionwithavailabledatesforbookingFlowInitiator.transaction_hasIntputState
+Recapconventionwithavailabledatesforbooking rule:RecapconventionwithavailabledatesforbookingFlowInitiator.transaction_outputStateType = AffiliatedVisit
+-----------------------------
+Workflow: PrivitySharingDataFlow .transaction_OutputState = PrivitySharingDataFlowInitiator | PrivitySharingDataFlowResponder
+PrivitySharingDataFlowInitiator_outputState.initiator = 2
+PrivitySharingDataFlowInitiator_outputState.receivers = 1
+PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingDataFlowInitiator.transaction_Attachment = Available dates
+PrivitySharingDataFlowInitiator.transaction_outputState = OutputState
+
+Contract.Command: PrivitySharingData
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_hasIntputState
+PrivitySharingData rule:PrivitySharingDataFlowInitiator.transaction_outputStateType = AffiliatedVisit
+State.sharingDataPrivity2 = false
+-----------------------------
+Sequential dependencies of tasks: 
+
+NewRequestofAffiliatedVisitFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow->Compliant?
+AcceptanceAssessmentFlow->RequestacceptedFlow
+RequestacceptedFlow->NewvisitrequestFlow
+RejectionAssessmentFlow->RequestrejectedFlow
+RequestrejectedFlow
+NewvisitrequestFlow->RecapconventionwithavailabledatesforbookingFlow
+RecapconventionwithavailabledatesforbookingFlow->PrivitySharingDataFlow
+PrivitySharingDataFlow
+Compliant?->RejectionAssessmentFlow
+Compliant?->AcceptanceAssessmentFlow
