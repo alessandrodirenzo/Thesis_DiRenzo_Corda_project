@@ -336,7 +336,7 @@ def statecontractworkflow(root):
             transaction_add = "builder.addAttachment(attachmentHash);"
 
         elif "Acceptance_Assessment" in x.attrib["name"]:
-            require_2 = "require.using(\"Message not null\", !output.getMessage().equals(\"\"));"
+            require_2 = "require.using(\"Message not null\", !output.getmessage().equals(\"\"));"
             message = "\n         " + "String message = \"prova\"" + ";\n         "
             secondcategory = "secondcategory" + str(p)
             p = p + 1
