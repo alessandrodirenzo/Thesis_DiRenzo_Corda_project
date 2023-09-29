@@ -14,7 +14,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state not present", tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -40,7 +40,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -53,7 +53,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -66,7 +66,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -79,7 +79,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -105,7 +105,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -118,7 +118,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -157,7 +157,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -170,7 +170,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -183,7 +183,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    
@@ -209,7 +209,7 @@ public class HospitalTelevisitExternalContract implements Contract{
 
                    requireThat(require -> {
                         require.using("input state present", !tx.getInputStates().isEmpty());
-             require.using("Message not null", !output.getMessage().equals(""));
+             require.using("message not null", !output.getmessage().equals(""));
                         return null;
                    });
                    

@@ -21,11 +21,11 @@ This guide is related to the example of Birth Certificate Issue, but it can be r
   
 6. Rename the class TemplateState.java in BirthCertificateIssue.java
 
-7. Add the following imports: import net.corda.core.contracts.UniqueIdentifier; import java.util.ArrayList; import 
+7. Add the following imports (if they are not already present): import net.corda.core.contracts.UniqueIdentifier; import java.util.ArrayList; import 
    net.corda.core.identity.AbstractParty;
 
 8. Open cordapp-template-java > contracts > src.main.java.com.template.contracts > ContractState.java
-   and substitute the entire code starting from "public class ContractState ..." with the code in the class 
+   and substitute the code starting from "public class ContractState ..." with the code in the class 
    BirthCertificateIssueContract.java at the path PythonScripts/BirthCertificateIssue/BirthCertificateIssueContract.java
 
 9. Rename the class ContractState.java in BirthCertificateIssueContract.java
@@ -116,7 +116,7 @@ in the "Pediatric Patient" node -> flow start SetappointmentFlow$SetappointmentF
 
 in the "Family" node -> flow start AskfordoctoravailabilityFlow$AskfordoctoravailabilityFlowInitiator receivers: "O= Doctor,L=Milan,C=IT"
 
-# Affiliated VIsit: 
+# Affiliated Visit: 
 
 in the "Company Employee" node -> flow start NewrequestofaffiliatedVisitFlow$NewrequestofaffiliatedVisitFlowInitiator receivers: "O= Health Care Fund,L=Milan,C=IT"
 
