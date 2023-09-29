@@ -25,7 +25,7 @@ This guide is related to the example of Birth Certificate Issue, but it can be r
    net.corda.core.identity.AbstractParty;
 
 8. Open cordapp-template-java > contracts > src.main.java.com.template.contracts > ContractState.java
-   and substitute the entire code starting from "public class ContractState ..." with the code in the class 
+   and substitute the code starting from "public class ContractState ..." with the code in the class 
    BirthCertificateIssueContract.java at the path PythonScripts/BirthCertificateIssue/BirthCertificateIssueContract.java
 
 9. Rename the class ContractState.java in BirthCertificateIssueContract.java
