@@ -116,7 +116,7 @@ in the "Pediatric Patient" node -> flow start SetappointmentFlow$SetappointmentF
 
 in the "Family" node -> flow start AskfordoctoravailabilityFlow$AskfordoctoravailabilityFlowInitiator receivers: "O= Doctor,L=Milan,C=IT"
 
-# Affiliated VIsit: 
+# Affiliated Visit: 
 
 in the "Company Employee" node -> flow start NewrequestofaffiliatedVisitFlow$NewrequestofaffiliatedVisitFlowInitiator receivers: "O= Health Care Fund,L=Milan,C=IT"
 
