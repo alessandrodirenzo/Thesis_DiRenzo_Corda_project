@@ -173,19 +173,19 @@ Terminal 3:
 
 23. In order to run node, move to the folder of the node: cd build/nodes/Pediatric patient
 
-25. Launch the following command: java -jar corda.jar
+24. Launch the following command: java -jar corda.jar
 
 Terminal 4:
 
-27. In order to run node, move to the folder of the node: cd build/nodes/Specialised group
+25. In order to run node, move to the folder of the node: cd build/nodes/Specialised group
 
-28. Launch the following command: java -jar corda.jar
+26. Launch the following command: java -jar corda.jar
 
 Terminal 5:
 
-30. In order to run node, move to the folder of the node: cd build/nodes/Hospital Staff
+27. In order to run node, move to the folder of the node: cd build/nodes/Hospital Staff
 
-31. Launch the following command: java -jar corda.jar
+28. Launch the following command: java -jar corda.jar
 
 **Possible problems with the running**
 If a node presents a conflict situation, the problem is related to the port of localhost which is equal to another node already in running. In this case, to fix the problem it is necessary to open the file build.gradle and change the port of localhost in rpcSettings and p2pPort ensuring that they are different from the ports already used by other nodes. 
@@ -197,16 +197,16 @@ Example: p2pPort 10005 -> p2pPort 10007
 On terminal 3:
 **In order to execute a transaction**
 
- 25: flow start SetappointmentFlow$SetappointmentFlowInitiator receivers: "O= Hospital Staff,L=Milan,C=IT"
+ 29: flow start SetappointmentFlow$SetappointmentFlowInitiator receivers: "O= Hospital Staff,L=Milan,C=IT"
 
 **In order to check the transaction correctly stored for Pediatric patient**
 
- 26: run vaultQuery contractStateType: com.template.states.HospitalTelevisitExternal
+ 30: run vaultQuery contractStateType: com.template.states.HospitalTelevisitExternal
 
 On terminal 5:
 **In order to check the transaction correctly stored for Hospital Staff**
 
- 27: run vaultQuery contractStateType: com.template.states.HospitalTelevisitExternal
+ 31: run vaultQuery contractStateType: com.template.states.HospitalTelevisitExternal
 
 # Hospital Teleconsultation 
 
@@ -274,13 +274,13 @@ Terminal 3:
 
 23. In order to run node, move to the folder of the node: cd build/nodes/Pediatric patient
 
-25. Launch the following command: java -jar corda.jar
+24. Launch the following command: java -jar corda.jar
 
 Terminal 4:
 
-27. In order to run node, move to the folder of the node: cd build/nodes/Doctor
+25. In order to run node, move to the folder of the node: cd build/nodes/Doctor
 
-28. Launch the following command: java -jar corda.jar
+26. Launch the following command: java -jar corda.jar
 
 **Possible problems with the running**
 If a node presents a conflict situation, the problem is related to the port of localhost which is equal to another node already in running. In this case, to fix the problem it is necessary to open the file build.gradle and change the port of localhost in rpcSettings and p2pPort ensuring that they are different from the ports already used by other nodes. 
@@ -292,16 +292,16 @@ Example: p2pPort 10005 -> p2pPort 10007
 On terminal 1:
 **In order to execute a transaction**
 
- 25: flow start AskfordoctoravailabilityFlow$AskfordoctoravailabilityFlowInitiator receivers: "O= Doctor,L=Milan,C=IT"
+ 27: flow start AskfordoctoravailabilityFlow$AskfordoctoravailabilityFlowInitiator receivers: "O= Doctor,L=Milan,C=IT"
 
 **In order to check the transaction correctly stored for Family**
 
- 26: run vaultQuery contractStateType: com.template.states.HospitalTeleconsultation
+ 28: run vaultQuery contractStateType: com.template.states.HospitalTeleconsultation
 
 On terminal 4:
 **In order to check the transaction correctly stored for Doctor**
 
- 27: run vaultQuery contractStateType: com.template.states.HospitalTeleconsultation
+ 29: run vaultQuery contractStateType: com.template.states.HospitalTeleconsultation
 
 
 # Affiliated Visit 
@@ -370,13 +370,13 @@ Terminal 3:
 
 23. In order to run node, move to the folder of the node: cd build/nodes/Health Care Fund
 
-25. Launch the following command: java -jar corda.jar
+24. Launch the following command: java -jar corda.jar
 
 Terminal 4:
 
-27. In order to run node, move to the folder of the node: cd build/nodes/Medical Office
+25. In order to run node, move to the folder of the node: cd build/nodes/Medical Office
 
-28. Launch the following command: java -jar corda.jar
+26. Launch the following command: java -jar corda.jar
 
 **Possible problems with the running**
 If a node presents a conflict situation, the problem is related to the port of localhost which is equal to another node already in running. In this case, to fix the problem it is necessary to open the file build.gradle and change the port of localhost in rpcSettings and p2pPort ensuring that they are different from the ports already used by other nodes. 
@@ -388,38 +388,38 @@ Example: p2pPort 10005 -> p2pPort 10007
 On terminal 1:
 **In order to execute a transaction**
 
- 25: flow start NewrequestofaffiliatedVisitFlow$NewrequestofaffiliatedVisitFlowInitiator receivers: "O= Health Care Fund,L=Milan,C=IT"
+ 27: flow start NewrequestofaffiliatedVisitFlow$NewrequestofaffiliatedVisitFlowInitiator receivers: "O= Health Care Fund,L=Milan,C=IT"
 
 **In order to check the transaction correctly stored for Company Employee**
 
- 26: run vaultQuery contractStateType: com.template.states.AffiliatedVisit
+ 28: run vaultQuery contractStateType: com.template.states.AffiliatedVisit
 
 On terminal 3:
 **In order to check the transaction correctly stored for Health Care Fund**
 
- 27: run vaultQuery contractStateType: com.template.states.AffiliatedVisit
+ 29: run vaultQuery contractStateType: com.template.states.AffiliatedVisit
 
 # Optional: inclusion of all the workflows generated by the scripts
 
-28.  In cordapp-template-java > workflows > src.main.java.com.template.flows >
+1.  In cordapp-template-java > workflows > src.main.java.com.template.flows >
      create as many java classes as the classes present in the path PythonScripts/BirthcertificateIssue/*.java (in this case there are 
      other 4 workflows to include: PrivitySharingDataFlow1.java, PrivitySharingDataFlow2.java, BirthcertificateregisteredFlow.java, 
      PrivitySharingDataFlow3.java)
 
-29.  Copy the import from the class RequestofnewcertificateFlow.java
+2.  Copy the import from the class RequestofnewcertificateFlow.java
 
-30.  Inside the PrivitySharingDataFlow*.java classes, substitute "filename", in the attachmentHash parameters, with the path of a zip 
+3.  Inside the PrivitySharingDataFlow*.java classes, substitute "filename", in the attachmentHash parameters, with the path of a zip 
      file in the local device in order to simulate the sharing of the document through the attachment.
 
-31. Redploy nodes
+4. Redploy nodes
 
-32. In the Citizen node, run the following commands:
+5. In the Citizen node, run the following commands:
     flow start RequestofnewbirthcertificateFlow$RequestofnewbirthcertificateFlowInitiator receivers: "O= Citizen registry birth 
     certificate,L=Milan,C=IT"
 
     flow start PrivitySharingDataFlow1$PrivitySharingDataFlow1Initiator receivers: "O= Citizen registry birth 
     certificate,L=Milan,C=IT"
 
-33. Run on both the nodes: run vaultQuery contractStateType: com.template.states.BirthCertificateIssue
+6. Run on both the nodes: run vaultQuery contractStateType: com.template.states.BirthCertificateIssue
     There are both transactions in the vault, with the attachment present in the second one.
     
