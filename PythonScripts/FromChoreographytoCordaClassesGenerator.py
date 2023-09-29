@@ -346,7 +346,7 @@ def statecontractworkflow(root):
                 }
                 """
             attrib = boolean + " " + secondcategory + ";"
-            attrib_2 = ", " + boolean + " secondcategory"
+            attrib_2 = ", " + boolean + secondcategory
             attrib_p = attrib_p + ", false"
             attrib_3 = "this." + secondcategory + " = " + secondcategory + ";" + "\n        "
             class_body = class_body + "\n          " + attrib
