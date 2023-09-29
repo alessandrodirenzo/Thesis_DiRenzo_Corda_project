@@ -43,13 +43,20 @@ This guide is composed of all the necessary steps to execute in order to success
 
 14. Rename the class TemplateFlow.java in RequestofnewbirthcertificateFlow.java
 
-15. In class RequestofnewbirthcertificateFlow.java add the following imports:
-    import com.template.contracts.ContractState; > import com.template.contracts.BirthCertificateIssueContract;
-    import com.template.states.TemplateState; > import com.template.states.BirthCertificateIssue;
+15. In class RequestofnewbirthcertificateFlow.java delete the following imports:
+
+    import com.template.contracts.ContractState; 
+    import com.template.states.TemplateState;
+
+    Then add the following imports:
+    
+    import com.template.contracts.BirthCertificateIssueContract;
+    import com.template.states.BirthCertificateIssue;
     import net.corda.core.contracts.UniqueIdentifier;
     import java.util.ArrayList;
     import net.corda.core.identity.AbstractParty;
     import org.jetbrains.annotations.NotNull;
+    import net.corda.core.crypto.SecureHash;
 
 16. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/BirthCertificateIssue/nodes configuration.txt
 
@@ -57,7 +64,7 @@ This guide is composed of all the necessary steps to execute in order to success
 
 17. Move to the directory of cordapp-template-java
 
-18. In order to deploy nodes, execute the command: ./gradlew clean deployNodes
+18. In order to build nodes, execute the command: ./gradlew clean deployNodes
 
 It is better to have a number of terminal opened equal to the number of nodes, included Notary (in this case 3).
 
@@ -139,21 +146,28 @@ On terminal 3:
 
 14. Rename the class TemplateFlow.java in SetappointmentFlow.java
 
-15. In class SetappointmentFlow.java add the following imports:
-    import com.template.contracts.ContractState; > import com.template.contracts.HospitalTelevisitExternalContract;
-    import com.template.states.TemplateState; > import com.template.states.HospitalTelevisitExternal;
+15. In class SetappointmentFlow.java delete the following imports:
+    
+    import com.template.contracts.ContractState;  
+    import com.template.states.TemplateState;
+
+    Then add the following imports:
+    
+    import com.template.contracts.HospitalTelevisitExternalContract;
+    import com.template.states.HospitalTelevisitExternal;
     import net.corda.core.contracts.UniqueIdentifier;
     import java.util.ArrayList;
     import net.corda.core.identity.AbstractParty;
     import org.jetbrains.annotations.NotNull;
+    import net.corda.core.crypto.SecureHash;
 
-16. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/HospitalTelevisitExternal/nodes configuration.txt
+17. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/HospitalTelevisitExternal/nodes configuration.txt
 
 **Terminal**
 
 17. Move to the directory of cordapp-template-java
 
-18. In order to deploy nodes, execute the command: ./gradlew clean deployNodes
+18. In order to build nodes, execute the command: ./gradlew clean deployNodes
 
 It is better to have a number of terminal opened equal to the number of nodes, included Notary (in this case 3).
 
@@ -240,21 +254,27 @@ On terminal 5:
 
 14. Rename the class TemplateFlow.java in AskfordoctoravailabilityFlow.java
 
-15. In class AskfordoctoravailabilityFlow.java add the following imports:
-    import com.template.contracts.ContractState; > import com.template.contracts.HospitalTeleconsultationContract;
-    import com.template.states.TemplateState; > import com.template.states.HospitalTeleconsultation;
+15. In class AskfordoctoravailabilityFlow.java delete the following imports:
+    
+    import com.template.contracts.ContractState; 
+    import com.template.states.TemplateState; 
+
+    Then add the following imports:
+    import com.template.contracts.HospitalTeleconsultationContract;
+    import com.template.states.HospitalTeleconsultation;
     import net.corda.core.contracts.UniqueIdentifier;
     import java.util.ArrayList;
     import net.corda.core.identity.AbstractParty;
     import org.jetbrains.annotations.NotNull;
+    import net.corda.core.crypto.SecureHash;
 
-16. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/HospitalTeleconsultation/nodes configuration.txt
+17. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/HospitalTeleconsultation/nodes configuration.txt
 
 **Terminal**
 
 17. Move to the directory of cordapp-template-java
 
-18. In order to deploy nodes, execute the command: ./gradlew clean deployNodes
+18. In order to build nodes, execute the command: ./gradlew clean deployNodes
 
 It is better to have a number of terminal opened equal to the number of nodes, included Notary (in this case 3).
 
@@ -336,21 +356,28 @@ On terminal 4:
 
 14. Rename the class TemplateFlow.java in NewRequestofAffiliatedVisitFlow.java
 
-15. In class NewRequestofAffiliatedVisitFlow.java add the following imports:
-    import com.template.contracts.ContractState; > import com.template.contracts.AffiliatedVisitContract;
-    import com.template.states.TemplateState; > import com.template.states.AffiliatedVisit;
+15. In class NewRequestofAffiliatedVisitFlow.java delete the following imports:
+    
+    import com.template.contracts.ContractState;
+    import com.template.states.TemplateState;
+    
+    Then add the following imports:
+    
+    import com.template.contracts.AffiliatedVisitContract;
+    import com.template.states.AffiliatedVisit;
     import net.corda.core.contracts.UniqueIdentifier;
     import java.util.ArrayList;
     import net.corda.core.identity.AbstractParty;
     import org.jetbrains.annotations.NotNull;
+    import net.corda.core.crypto.SecureHash;
 
-16. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/AffiliatedVisit/nodes configuration.txt
+17. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/AffiliatedVisit/nodes configuration.txt
 
 **Terminal**
 
 17. Move to the directory of cordapp-template-java
 
-18. In order to deploy nodes, execute the command: ./gradlew clean deployNodes
+18. In order to build nodes, execute the command: ./gradlew clean deployNodes
 
 It is better to have a number of terminal opened equal to the number of nodes, included Notary (in this case 3).
 
