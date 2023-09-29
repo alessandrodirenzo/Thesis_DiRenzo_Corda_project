@@ -20,7 +20,7 @@ boolean firstcategory2;
           boolean secondcategory2;
           boolean datashared4;
              
-        public HospitalTelevisitExternal(UniqueIdentifier idState, String message, Party initiator, List<Party> receivers, boolean accepted1, boolean rejected1, boolean firstcategory1, boolean accepted2, boolean rejected2, boolean firstcategory2, boolean datashared1, boolean secondcategory, boolean datashared2, boolean decisiondatashared1, boolean datashared3, boolean secondcategory, boolean datashared4){
+        public HospitalTelevisitExternal(UniqueIdentifier idState, String message, Party initiator, List<Party> receivers, boolean accepted1, boolean rejected1, boolean firstcategory1, boolean accepted2, boolean rejected2, boolean firstcategory2, boolean datashared1, boolean secondcategory1, boolean datashared2, boolean decisiondatashared1, boolean datashared3, boolean secondcategory2, boolean datashared4){
             this.idState = idState;
             this.message = message;
             this.initiator = initiator;
