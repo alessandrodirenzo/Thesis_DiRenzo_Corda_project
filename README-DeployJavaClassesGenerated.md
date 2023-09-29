@@ -1,6 +1,6 @@
 This file allows the deployment of the cordApp composed of classes generated automatically by the script: FromChoreographyToCordaClassGenerator.py
 
-This guide is related to the example of Birth Certificate Issue, but it can be readapted to the other examples by changing files from the folder of the example to deploy and related imports.
+This guide is composed of all the necessary steps to execute in order to successfully deploy nodes and execute transactions related to the four examples: Birth Certificate Issue, Hospital Televisit External, Hospital Teleconsultation and Affiliated Visit: search for the example you want to deploy and reproduce all the steps indicated!
 
 # System configuration:
 
