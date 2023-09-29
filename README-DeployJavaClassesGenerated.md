@@ -215,40 +215,40 @@ On terminal 5:
 **IntelliJ**
 
 5. Open cordapp-template-java > contracts > .src.main.java.com.template.states >  templateState.java 
-  and substitute the code starting after the line "@BelongsToContract(..)" with the code in the class HospitalTelevisitExternal.java at the path PythonScripts/HospitalTelevisitExternal/HospitalTelevisitExternal.java
+  and substitute the code starting after the line "@BelongsToContract(..)" with the code in the class HospitalTeleconsultation.java at the path PythonScripts/HospitalTeleconsultation/HospitalTeleconsultation.java
   
-6. Rename the class TemplateState.java in HospitalTelevisitExternal.java
+6. Rename the class TemplateState.java in HospitalTeleconsultation.java
 
 7. Add the following imports (if they are not already present): import net.corda.core.contracts.UniqueIdentifier; import java.util.ArrayList; import net.corda.core.identity.AbstractParty;
 
 8. Open cordapp-template-java > contracts > src.main.java.com.template.contracts > ContractState.java
    and substitute the code starting from "public class ContractState ..." with the code in the class 
-   HospitalTelevisitExternalContract.java at the path PythonScripts/HospitalTelevisitExternal/HospitalTelevisitExternalContract.java
+   HospitalTeleconsultationContract.java at the path PythonScripts/HospitalTeleconsultation/HospitalTeleconsultationContract.java
 
-9. Rename the class ContractState.java in HospitalTelevisitExternalContract.java
+9. Rename the class ContractState.java in HospitalTeleconsultationContract.java
 
-10. Change the following import: import com.template.states.TemplateState; > import com.template.states.HospitalTelevisitExternal;
+10. Change the following import: import com.template.states.TemplateState; > import com.template.states.HospitalTeleconsultation;
 
-11. In class HospitalTelevisitExternal.java, change the following import:
-   import com.template.contracts.ContractState; > import com.template.contracts.HospitalTelevisitExternalContract;
+11. In class HospitalTeleconsultation.java, change the following import:
+   import com.template.contracts.ContractState; > import com.template.contracts.HospitalTeleconsultationContract;
 
-12. In class HospitalTelevisitExternal.java change the line @BelongsToContract(...) > @BelongsToContract(HospitalTelevisitExternalContract.class)
+12. In class HospitalTeleconsultation.java change the line @BelongsToContract(...) > @BelongsToContract(HospitalTeleconsultationContract.class)
 
 13. Open cordapp-template-java > workflows > src.main.java.com.template.flows > TemplateFlow.java
    and substitute the entire code in the class from "public class TemplateFlow ... " with the code in the class 
-    SetappointmentFlow.java at the path PythonScripts/HospitalTelevisitExternal/SetappointmentFlow.java
+    AskfordoctoravailabilityFlow.java at the path PythonScripts/HospitalTeleconsultation/AskfordoctoravailabilityFlow.java
 
-14. Rename the class TemplateFlow.java in SetappointmentFlow.java
+14. Rename the class TemplateFlow.java in AskfordoctoravailabilityFlow.java
 
-15. In class SetappointmentFlow.java add the following imports:
-    import com.template.contracts.ContractState; > import com.template.contracts.HospitalTelevisitExternalContract;
-    import com.template.states.TemplateState; > import com.template.states.HospitalTelevisitExternal;
+15. In class AskfordoctoravailabilityFlow.java add the following imports:
+    import com.template.contracts.ContractState; > import com.template.contracts.HospitalTeleconsultationContract;
+    import com.template.states.TemplateState; > import com.template.states.HospitalTeleconsultationExternal;
     import net.corda.core.contracts.UniqueIdentifier;
     import java.util.ArrayList;
     import net.corda.core.identity.AbstractParty;
     import org.jetbrains.annotations.NotNull;
 
-16. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/HospitalTelevisitExternal/nodes configuration.txt
+16. Open build.gradle in cordapp-template-java > build.gradle, inside "task deployNodes(type: ...)" substitute the existing nodes with the nodes in the file "nodes configuration.txt" at the path PythonScripts/HospitalTeleconsultation/nodes configuration.txt
 
 **Terminal**
 
@@ -278,15 +278,9 @@ Terminal 3:
 
 Terminal 4:
 
-27. In order to run node, move to the folder of the node: cd build/nodes/Specialised group
+27. In order to run node, move to the folder of the node: cd build/nodes/Doctor
 
 28. Launch the following command: java -jar corda.jar
-
-Terminal 5:
-
-30. In order to run node, move to the folder of the node: cd build/nodes/Hospital Staff
-
-31. Launch the following command: java -jar corda.jar
 
 **Possible problems with the running**
 If a node presents a conflict situation, the problem is related to the port of localhost which is equal to another node already in running. In this case, to fix the problem it is necessary to open the file build.gradle and change the port of localhost in rpcSettings and p2pPort ensuring that they are different from the ports already used by other nodes. 
@@ -295,21 +289,20 @@ Example: p2pPort 10005 -> p2pPort 10007
 
 **After the nodes are running...**
 
-On terminal 3:
+On terminal 1:
 **In order to execute a transaction**
 
- 25: flow start SetappointmentFlow$SetappointmentFlowInitiator receivers: "O= Hospital Staff,L=Milan,C=IT"
+ 25: flow start AskfordoctoravailabilityFlow$AskfordoctoravailabilityFlowInitiator receivers: "O= Doctor,L=Milan,C=IT"
 
-**In order to check the transaction correctly stored for Pediatric patient**
+**In order to check the transaction correctly stored for Family**
 
- 26: run vaultQuery contractStateType: com.template.states.HospitalTelevisitExternal
+ 26: run vaultQuery contractStateType: com.template.states.HospitalTeleconsultation
 
-On terminal 5:
-**In order to check the transaction correctly stored for Hospital Staff**
+On terminal 4:
+**In order to check the transaction correctly stored for Doctor**
 
- 27: run vaultQuery contractStateType: com.template.states.HospitalTelevisitExternal
+ 27: run vaultQuery contractStateType: com.template.states.HospitalTeleconsultation
 
-flow start AskfordoctoravailabilityFlow$AskfordoctoravailabilityFlowInitiator receivers: "O= Doctor,L=Milan,C=IT"
 
 # Affiliated Visit 
 
